@@ -1,0 +1,73 @@
+services:
+  nextcloud:
+    container_name: nextcloud
+    image: nextcloud:31.0.4-apache
+    restart: unless-stopped
+    environment:
+      - TZ=America/New_York
+    env_file:
+      - /custom/files/nextcloud.env
+    networks:
+      - nextcloud
+      - proxy
+    volumes:
+      - 'nextcloud_data:/var/www/html'
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.nextcloud.rule=Host(`nextcloud.${SECRET_INTERNAL_DOMAIN_NAME}`)
+      - traefik.http.routers.nextcloud.tls=true
+      - traefik.http.routers.nextcloud.tls.certresolver=cloudflare
+      - traefik.http.routers.nextcloud.entrypoints=websecure
+      - traefik.http.services.nextcloud.loadbalancer.server.port=80
+      - "traefik.http.routers.nextcloud.middlewares=nextcloud_headers,nextcloud_redirectregex"
+      - "traefik.http.middlewares.nextcloud_redirectregex.redirectregex.regex=https://(.*)/.well-known/(?:card|cal)dav"
+      - "traefik.http.middlewares.nextcloud_redirectregex.redirectregex.replacement=https://$${1}/remote.php/dav/"
+      - traefik.http.middlewares.nextcloud_redirectregex.redirectregex.permanent=true
+      - traefik.http.middlewares.nextcloud_headers.headers.stsIncludeSubdomains=true
+      - traefik.http.middlewares.nextcloud_headers.headers.stsPreload=true
+      - traefik.http.middlewares.nextcloud_headers.headers.stsSeconds=63072000
+      - traefik.http.middlewares.nextcloud_headers.headers.customFrameOptionsValue=SAMEORIGIN
+      - traefik.http.middlewares.nextcloud_headers.headers.frameDeny=true
+  nextcloud-redis:
+    container_name: nextcloud-redis
+    image: redis:7.4.3
+    restart: unless-stopped
+    networks:
+      - nextcloud
+    depends_on:
+      - nextcloud
+    volumes:
+      - 'redis_data:/data'
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 2s
+      timeout: 3s
+      retries: 3
+      start_period: 30s
+  nextcloud-cron:
+    container_name: nextcloud-cron
+    image: nextcloud:31.0.4-apache
+    restart: unless-stopped
+    environment:
+      - TZ=America/New_York
+    env_file:
+      - /custom/files/nextcloud.env
+    networks:
+      - nextcloud
+    volumes:
+      - 'nextcloud_data:/var/www/html'
+    depends_on:
+      - nextcloud
+      - nextcloud-redis
+    entrypoint: /cron.sh
+
+networks:
+  nextcloud:
+  proxy:
+    external: true
+
+volumes:
+  nextcloud_data:
+    driver: local
+  redis_data:
+    driver: local

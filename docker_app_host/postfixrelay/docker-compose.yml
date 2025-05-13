@@ -1,0 +1,23 @@
+services:
+  postfixrelay:
+    container_name: postfixrelay
+    image: loganmarchione/docker-postfixrelay:1.6.1
+    restart: unless-stopped
+    environment:
+      - TZ=America/New_York
+    env_file:
+      - /custom/files/postfixrelay.env
+    networks:
+      - proxy  # This is needed in order for Drone to talk to Postfix, they just needed to be on the same network and this hack worked
+    ports:
+      - '0.0.0.0:25:25/tcp'
+    volumes:
+      - 'postfixrelay_data:/var/spool/postfix'
+
+networks:
+  proxy:
+    external: true
+
+volumes:
+  postfixrelay_data:
+    driver: local

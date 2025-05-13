@@ -1,0 +1,33 @@
+services:
+  audiobookshelf:
+    container_name: audiobookshelf
+    image: ghcr.io/advplyr/audiobookshelf:2.21.0
+    restart: unless-stopped
+    environment:
+      - TZ=America/New_York
+    networks:
+      - proxy
+    volumes:
+      - 'audiobookshelf_config:/config'
+      - 'audiobookshelf_metadata:/metadata'
+      - 'audiobookshelf_audiobooks:/audiobooks'
+      - '/custom_mounts/media:/custom_mounts/media:ro'
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.audiobookshelf.rule=Host(`audiobookshelf.${SECRET_INTERNAL_DOMAIN_NAME}`)
+      - traefik.http.routers.audiobookshelf.tls=true
+      - traefik.http.routers.audiobookshelf.tls.certresolver=cloudflare
+      - traefik.http.routers.audiobookshelf.entrypoints=websecure
+      - traefik.http.services.audiobookshelf.loadbalancer.server.port=80
+
+networks:
+  proxy:
+    external: true
+
+volumes:
+  audiobookshelf_config:
+    driver: local
+  audiobookshelf_metadata:
+    driver: local
+  audiobookshelf_audiobooks:
+    driver: local

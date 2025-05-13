@@ -1,0 +1,64 @@
+services:
+  mongo:
+    container_name: unifi-mongo
+    image: mongo:6.0.23
+    restart: unless-stopped
+    environment:
+      - TZ=UTC
+    env_file:
+      - /custom/files/unifi.env
+    networks:
+      - unifi
+    expose:
+      - '27017/tcp'
+    volumes:
+      - 'mongo_data:/data/db'
+      - 'mongo_config:/data/configdb'
+      - 'mongo_init:/docker-entrypoint-initdb.d:ro'
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+  unifi:
+    container_name: unifi
+    image: lscr.io/linuxserver/unifi-network-application:9.1.120
+    restart: unless-stopped
+    environment:
+      - TZ=America/New_York
+    networks:
+      - unifi
+      - proxy
+    ports:
+      - '0.0.0.0:3478:3478/udp'    # STUN
+      - '0.0.0.0:6789:6789/tcp'    # Speedtest
+      - '0.0.0.0:8080:8080/tcp'    # Device and controller communication
+      - '0.0.0.0:10001:10001/udp'  # Discovery
+    depends_on:
+      - mongo
+    volumes:
+      - 'unifi_config:/config'
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.unifi.rule=Host(`unifi.${SECRET_INTERNAL_DOMAIN_NAME}`)
+      - traefik.http.routers.unifi.tls=true
+      - traefik.http.routers.unifi.tls.certresolver=cloudflare
+      - traefik.http.routers.unifi.entrypoints=websecure
+      - traefik.http.services.unifi.loadbalancer.server.scheme=https
+      - traefik.http.services.unifi.loadbalancer.server.port=8443
+
+networks:
+  unifi:
+  proxy:
+    external: true
+
+volumes:
+  mongo_config:
+    driver: local
+  mongo_data:
+    driver: local
+  mongo_init:
+    driver: local
+  unifi_config:
+    driver: local

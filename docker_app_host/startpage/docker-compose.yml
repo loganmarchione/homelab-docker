@@ -1,0 +1,24 @@
+services:
+  startpage:
+    container_name: startpage
+    image: loganmarchione/docker-php-startpage:0.9.8
+    restart: unless-stopped
+    networks:
+      - proxy
+    volumes:
+      - 'user_includes:/var/www/html/user_includes'
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.startpage.rule=Host(`startpage.${SECRET_INTERNAL_DOMAIN_NAME}`)
+      - traefik.http.routers.startpage.tls=true
+      - traefik.http.routers.startpage.tls.certresolver=cloudflare
+      - traefik.http.routers.startpage.entrypoints=websecure
+      - traefik.http.services.startpage.loadbalancer.server.port=80
+
+networks:
+  proxy:
+    external: true
+
+volumes:
+  user_includes:
+    driver: local

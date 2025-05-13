@@ -1,0 +1,108 @@
+services:
+  mongo:
+    container_name: graylog-mongo
+    image: mongo:6.0.23
+    restart: unless-stopped
+    environment:
+      - TZ=UTC
+    env_file:
+      - /custom/files/graylog_mongo.env
+    networks:
+      - graylog_mongo
+    expose:
+      - '27017/tcp'
+    volumes:
+      - 'mongo_data:/data/db'
+      - 'mongo_config:/data/configdb'
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+  opensearch:
+    container_name: graylog-opensearch  # Need to use a dash since Graylog connects over HTTP and we need a valid DNS name
+    image: opensearchproject/opensearch:2.19.2
+    restart: unless-stopped
+    environment:
+      - TZ=UTC
+    env_file:
+      - /custom/files/graylog_opensearch.env
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    networks:
+      - graylog_opensearch
+      - proxy
+    ports:
+      - '0.0.0.0:9200:9200/tcp'
+    volumes:
+      - 'opensearch_data:/usr/share/opensearch/data'
+    healthcheck:
+      test: ["CMD-SHELL", "curl -s -f http://localhost:9200/_cluster/health?pretty | grep -q '\"status\" : \"green\"\\|\"status\" : \"yellow\"'"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+  graylog:
+    container_name: graylog
+    image: graylog/graylog:6.2.2
+    restart: unless-stopped
+    environment:
+      - TZ=UTC
+    env_file:
+      - /custom/files/graylog.env
+    networks:
+      - graylog_mongo
+      - graylog_opensearch
+      - graylog
+      - proxy
+    ports:
+      - '0.0.0.0:8515:8515/udp'
+    depends_on:
+      - mongo
+      - opensearch
+    volumes:
+      - 'graylog:/usr/share/graylog/data'
+      - 'geoipupdate_data:/usr/share/GeoIP:ro'
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.graylogweb.rule=Host(`graylog.${SECRET_INTERNAL_DOMAIN_NAME}`)
+      - traefik.http.routers.graylogweb.tls=true
+      - traefik.http.routers.graylogweb.tls.certresolver=cloudflare
+      - traefik.http.routers.graylogweb.entrypoints=websecure
+      - traefik.http.services.graylogweb.loadbalancer.server.port=9000
+  geoipupdate:
+    container_name: graylog-geoipupdate
+    image: ghcr.io/maxmind/geoipupdate:v7.1.0
+    restart: unless-stopped
+    environment:
+      - TZ=UTC
+    env_file:
+      - /custom/files/graylog_geoipupdate.env
+    networks:
+      - graylog
+    depends_on:
+      - graylog
+    volumes:
+      - 'geoipupdate_data:/usr/share/GeoIP'
+
+networks:
+  graylog_mongo:
+  graylog_opensearch:
+  graylog:
+  proxy:
+    external: true
+
+volumes:
+  mongo_config:
+    driver: local
+  mongo_data:
+    driver: local
+  opensearch_data:
+    driver: local
+  graylog:
+    driver: local
+  geoipupdate_data:
+    driver: local

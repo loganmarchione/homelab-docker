@@ -1,0 +1,29 @@
+services:
+  navidrome:
+    container_name: navidrome
+    image: ghcr.io/navidrome/navidrome:0.55.2
+    restart: unless-stopped
+    environment:
+      - TZ=America/New_York
+    env_file:
+      - /custom/files/navidrome.env
+    networks:
+      - proxy
+    volumes:
+      - 'navidrome_data:/data'
+      - '/custom_mounts/media/library/iTunes/Playlist:/music:ro'
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.navidrome.rule=Host(`navidrome.${SECRET_INTERNAL_DOMAIN_NAME}`)
+      - traefik.http.routers.navidrome.tls=true
+      - traefik.http.routers.navidrome.tls.certresolver=cloudflare
+      - traefik.http.routers.navidrome.entrypoints=websecure
+      - traefik.http.services.navidrome.loadbalancer.server.port=4533
+
+networks:
+  proxy:
+    external: true
+
+volumes:
+  navidrome_data:
+    driver: local

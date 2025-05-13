@@ -1,0 +1,82 @@
+services:
+  tubearchivist:
+    container_name: tubearchivist
+    image: bbilly1/tubearchivist:v0.5.1
+    restart: unless-stopped
+    environment:
+      - TZ=America/New_York
+    env_file:
+      - /custom/files/tubearchivist.env
+    networks:
+      - proxy
+      - tubearchivist
+    depends_on:
+      - tubearchivist-elasticsearch
+      - tubearchivist-redis
+    volumes:
+      - '/custom_mounts/media/library/YouTube:/youtube'
+      - 'tubearchivist_cache:/cache'
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health"]
+      interval: 2m
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.tubearchivist.rule=Host(`tubearchivist.${SECRET_INTERNAL_DOMAIN_NAME}`)
+      - traefik.http.routers.tubearchivist.tls=true
+      - traefik.http.routers.tubearchivist.tls.certresolver=cloudflare
+      - traefik.http.routers.tubearchivist.entrypoints=websecure
+      - traefik.http.services.tubearchivist.loadbalancer.server.port=8000
+  tubearchivist-redis:
+    container_name: tubearchivist-redis
+    image: redis:7.4.3
+    restart: unless-stopped
+    networks:
+      - tubearchivist
+    depends_on:
+      - tubearchivist-elasticsearch
+    volumes:
+      - 'redis_data:/data'
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 2s
+      timeout: 3s
+      retries: 3
+      start_period: 30s
+  tubearchivist-elasticsearch:
+    container_name: tubearchivist-elasticsearch  # Need to use a dash since Tube Archivist connects over HTTP and we need a valid DNS name
+    image: elasticsearch:8.17.2
+    restart: unless-stopped
+    environment:
+      - TZ=UTC
+    env_file:
+      - /custom/files/tubearchivist.env
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    networks:
+      - tubearchivist
+    volumes:
+      - 'elasticsearch_data:/usr/share/elasticsearch/data'
+    healthcheck:
+      test: ["CMD-SHELL", "curl -s -f -u elastic:$${ELASTIC_PASSWORD} http://localhost:9200/_cluster/health?pretty | grep -q '\"status\" : \"green\"\\|\"status\" : \"yellow\"'"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+networks:
+  tubearchivist:
+  proxy:
+    external: true
+
+volumes:
+  tubearchivist_cache:
+    driver: local
+  redis_data:
+    driver: local
+  elasticsearch_data:
+    driver: local

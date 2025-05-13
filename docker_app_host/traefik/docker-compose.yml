@@ -1,0 +1,80 @@
+services:
+  traefik:
+    container_name: traefik
+    image: traefik:v3.4.0
+    restart: unless-stopped
+    environment:
+      - TZ=America/New_York
+    env_file:
+      - /custom/files/traefik.env
+    networks:
+      proxy:
+        aliases:  # These are needed to be able to ping between hosts in separate containers
+          - audiobookshelf.${SECRET_INTERNAL_DOMAIN_NAME}
+          - drone.${SECRET_INTERNAL_DOMAIN_NAME}
+          - git.${SECRET_INTERNAL_DOMAIN_NAME}
+          - grafana.${SECRET_INTERNAL_DOMAIN_NAME}
+          - graylog.${SECRET_INTERNAL_DOMAIN_NAME}
+          - homebox.${SECRET_INTERNAL_DOMAIN_NAME}
+          - jellyfin.${SECRET_INTERNAL_DOMAIN_NAME}
+          - jellyfin-vue.${SECRET_INTERNAL_DOMAIN_NAME}
+          - kiwix.${SECRET_INTERNAL_DOMAIN_NAME}
+          - manyfold.${SECRET_INTERNAL_DOMAIN_NAME}
+          - navidrome.${SECRET_INTERNAL_DOMAIN_NAME}
+          - nextcloud.${SECRET_INTERNAL_DOMAIN_NAME}
+          - planka.${SECRET_INTERNAL_DOMAIN_NAME}
+          - portainer.${SECRET_INTERNAL_DOMAIN_NAME}
+          - prometheus.${SECRET_INTERNAL_DOMAIN_NAME}
+          - recipes.${SECRET_INTERNAL_DOMAIN_NAME}
+          - startpage.${SECRET_INTERNAL_DOMAIN_NAME}
+          - tubearchivist.${SECRET_INTERNAL_DOMAIN_NAME}
+          - traefik.${SECRET_INTERNAL_DOMAIN_NAME}
+          - webdav.${SECRET_INTERNAL_DOMAIN_NAME}
+          - whoami.${SECRET_INTERNAL_DOMAIN_NAME}
+          - wiki.${SECRET_INTERNAL_DOMAIN_NAME}
+          - unifi.${SECRET_INTERNAL_DOMAIN_NAME}
+    ports:
+      - '443:443/tcp'
+    volumes:
+      - 'traefik_data:/etc/traefik'
+      - '/var/run/docker.sock:/var/run/docker.sock:ro'
+      - '/custom/files/traefik_users:/custom/files/traefik_users:ro'
+    healthcheck:
+      test: ["CMD", "traefik", "healthcheck", "--ping"]
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.traefik.rule=Host(`traefik.${SECRET_INTERNAL_DOMAIN_NAME}`)
+      - traefik.http.routers.traefik.tls=true
+      - traefik.http.routers.traefik.entrypoints=websecure
+      - traefik.http.routers.traefik.tls.certresolver=cloudflare
+      - traefik.http.routers.traefik.service=api@internal
+      - traefik.port=443
+      - traefik.http.routers.traefik.middlewares=auth
+      - "traefik.http.middlewares.auth.basicauth.usersfile=/custom/files/traefik_users"
+  whoami:
+    container_name: whoami
+    image: traefik/whoami:v1.11.0
+    restart: unless-stopped
+    environment:
+      - TZ=America/New_York
+    networks:
+      - proxy
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.whoami.rule=Host(`whoami.${SECRET_INTERNAL_DOMAIN_NAME}`)
+      - traefik.http.routers.whoami.tls=true
+      - traefik.http.routers.whoami.tls.certresolver=cloudflare
+      - traefik.http.routers.whoami.entrypoints=websecure
+      - traefik.http.services.whoami.loadbalancer.server.port=80
+
+networks:
+  proxy:
+    external: true
+
+volumes:
+  traefik_data:
+    driver: local

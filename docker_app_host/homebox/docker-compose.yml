@@ -1,0 +1,26 @@
+services:
+  homebox:
+    container_name: homebox
+    image: ghcr.io/sysadminsmedia/homebox:0.19.0-rootless
+    restart: unless-stopped
+    environment:
+      - TZ=America/New_York
+    networks:
+      - proxy
+    volumes:
+      - 'homebox_data:/data'
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.homebox.rule=Host(`homebox.${SECRET_INTERNAL_DOMAIN_NAME}`)
+      - traefik.http.routers.homebox.tls=true
+      - traefik.http.routers.homebox.tls.certresolver=cloudflare
+      - traefik.http.routers.homebox.entrypoints=websecure
+      - traefik.http.services.homebox.loadbalancer.server.port=7745
+
+networks:
+  proxy:
+    external: true
+
+volumes:
+  homebox_data:
+    driver: local

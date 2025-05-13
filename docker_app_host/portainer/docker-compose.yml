@@ -1,0 +1,28 @@
+services:
+  portainer:
+    container_name: portainer
+    image: portainer/portainer-ce:2.29.2-alpine
+    restart: unless-stopped
+    environment:
+      - TZ=America/New_York
+    networks:
+      - proxy
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock'
+      - 'portainer_data:/data'
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.portainer.rule=Host(`portainer.${SECRET_INTERNAL_DOMAIN_NAME}`)
+      - traefik.http.routers.portainer.tls=true
+      - traefik.http.routers.portainer.tls.certresolver=cloudflare
+      - traefik.http.routers.portainer.entrypoints=websecure
+      - traefik.http.services.portainer.loadbalancer.server.scheme=https
+      - traefik.http.services.portainer.loadbalancer.server.port=9443
+
+networks:
+  proxy:
+    external: true
+
+volumes:
+  portainer_data:
+    driver: local

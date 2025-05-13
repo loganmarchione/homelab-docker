@@ -1,0 +1,24 @@
+services:
+  kiwix:
+    container_name: kiwix
+    image: ghcr.io/kiwix/kiwix-serve:3.7.0
+    command:
+      - '*.zim'
+    restart: unless-stopped
+    environment:
+      - TZ=America/New_York
+    networks:
+      - proxy
+    volumes:
+      - '/custom_mounts/media_nc/library/Kiwix:/data:ro'
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.kiwix.rule=Host(`kiwix.${SECRET_INTERNAL_DOMAIN_NAME}`)
+      - traefik.http.routers.kiwix.tls=true
+      - traefik.http.routers.kiwix.tls.certresolver=cloudflare
+      - traefik.http.routers.kiwix.entrypoints=websecure
+      - traefik.http.services.kiwix.loadbalancer.server.port=8080
+
+networks:
+  proxy:
+    external: true

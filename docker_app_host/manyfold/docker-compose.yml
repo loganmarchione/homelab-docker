@@ -1,0 +1,40 @@
+services:
+  manyfold:
+    container_name: manyfold
+    image: ghcr.io/manyfold3d/manyfold-solo:0.108.1
+    restart: unless-stopped
+    environment:
+      - TZ=America/New_York
+    env_file:
+      - /custom/files/manyfold.env
+    networks:
+      - proxy
+    volumes:
+      - 'manyfold_config:/config'
+      - 'manyfold_libraries:/libraries'
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.manyfold.rule=Host(`manyfold.${SECRET_INTERNAL_DOMAIN_NAME}`)
+      - traefik.http.routers.manyfold.tls=true
+      - traefik.http.routers.manyfold.tls.certresolver=cloudflare
+      - traefik.http.routers.manyfold.entrypoints=websecure
+      - traefik.http.services.manyfold.loadbalancer.server.port=3214
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - SETUID
+      - SETGID
+
+networks:
+  proxy:
+    external: true
+
+volumes:
+  manyfold_config:
+    driver: local
+  manyfold_libraries:
+    driver: local

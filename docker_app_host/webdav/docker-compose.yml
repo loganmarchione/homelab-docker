@@ -1,0 +1,26 @@
+services:
+  webdav:
+    container_name: webdav
+    image: loganmarchione/docker-webdav-nginx:1.0.2
+    restart: unless-stopped
+    env_file:
+      - /custom/files/webdav.env
+    networks:
+      - proxy
+    volumes:
+      - 'webdav:/var/www/webdav'
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.webdav.rule=Host(`webdav.${SECRET_INTERNAL_DOMAIN_NAME}`)
+      - traefik.http.routers.webdav.tls=true
+      - traefik.http.routers.webdav.tls.certresolver=cloudflare
+      - traefik.http.routers.webdav.entrypoints=websecure
+      - traefik.http.services.webdav.loadbalancer.server.port=80
+
+networks:
+  proxy:
+    external: true
+
+volumes:
+  webdav:
+    driver: local

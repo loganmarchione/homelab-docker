@@ -1,0 +1,28 @@
+services:
+  mealie:
+    container_name: mealie
+    image: ghcr.io/mealie-recipes/mealie:v2.8.0
+    restart: unless-stopped
+    environment:
+      - TZ=America/New_York
+    env_file:
+      - /custom/files/mealie.env
+    networks:
+      - proxy
+    volumes:
+      - 'mealie_data:/app/data'
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.mealie.rule=Host(`recipes.${SECRET_INTERNAL_DOMAIN_NAME}`)
+      - traefik.http.routers.mealie.tls=true
+      - traefik.http.routers.mealie.tls.certresolver=cloudflare
+      - traefik.http.routers.mealie.entrypoints=websecure
+      - traefik.http.services.mealie.loadbalancer.server.port=9000
+
+networks:
+  proxy:
+    external: true
+
+volumes:
+  mealie_data:
+    driver: local
