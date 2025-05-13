@@ -1,0 +1,62 @@
+services:
+  mariadb:
+    container_name: romm-mariadb
+    image: mariadb:11.7.2-noble
+    restart: unless-stopped
+    environment:
+      - TZ=America/New_York
+    env_file:
+      - /custom/files/romm.env
+    networks:
+      - romm
+    volumes:
+      - 'mariadb_data:/var/lib/mysql'
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      start_period: 10s
+      interval: 10s
+      timeout: 5s
+      retries: 3
+  romm:
+    container_name: romm
+    image: rommapp/romm:3.8.2
+    restart: unless-stopped
+    environment:
+      - TZ=America/New_York
+    env_file:
+      - /custom/files/romm.env
+    networks:
+      - proxy
+      - romm
+    depends_on:
+      - mariadb
+    volumes:
+      - 'romm_resources:/romm/resources'
+      - 'romm_redis_data:/redis-data'
+      - 'romm_assets:/romm/assets'
+      - 'romm_config:/romm/config'
+      - '/custom_mounts/media/library/ROMs:/romm/library:ro'
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.romm.rule=Host(`romm.${SECRET_INTERNAL_DOMAIN_NAME}`)
+      - traefik.http.routers.romm.tls=true
+      - traefik.http.routers.romm.tls.certresolver=cloudflare
+      - traefik.http.routers.romm.entrypoints=websecure
+      - traefik.http.services.romm.loadbalancer.server.port=8080
+
+networks:
+  proxy:
+    external: true
+  romm:
+
+volumes:
+  romm_resources:
+    driver: local
+  romm_redis_data:
+    driver: local
+  romm_assets:
+    driver: local
+  romm_config:
+    driver: local
+  mariadb_data:
+    driver: local

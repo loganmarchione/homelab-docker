@@ -1,0 +1,28 @@
+version: '3'
+services:
+  focalboard:
+    container_name: focalboard
+    image: mattermost/focalboard:7.4.3
+    restart: unless-stopped
+    networks:
+      - proxy
+    volumes:
+      - 'focalboard_data:/data'
+      - 'focalboard_conf:/opt/focalboard'
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.kanban.rule=Host(`kanban.${SECRET_INTERNAL_DOMAIN_NAME}`)
+      - traefik.http.routers.kanban.tls=true
+      - traefik.http.routers.kanban.tls.certresolver=route53
+      - traefik.http.routers.kanban.entrypoints=websecure
+      - traefik.http.services.kanban.loadbalancer.server.port=8000
+
+networks:
+  proxy:
+    external: true
+
+volumes:
+  focalboard_data:
+    driver: local
+  focalboard_conf:
+    driver: local
