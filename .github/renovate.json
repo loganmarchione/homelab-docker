@@ -9,6 +9,7 @@
   "labels": [
     "renovatebot"
   ],
+  "separateMinorPatch": true,
   "docker-compose": {
     "ignorePaths": [
       "old"
