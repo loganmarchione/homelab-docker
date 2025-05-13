@@ -1,7 +1,7 @@
 services:
   dokuwiki:
     container_name: dokuwiki
-    image: php:8.3-apache-bullseye
+    image: php:8.4-apache-bullseye
     restart: unless-stopped
     environment:
       - TZ=America/New_York
