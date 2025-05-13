@@ -3,5 +3,29 @@
   "extends": [
     "config:recommended",
     "schedule:nonOfficeHours"
+  ],
+  "dependencyDashboard": true,
+  "dependencyDashboardTitle": "Renovate Dashboard",
+  "labels": [
+    "renovatebot"
+  ],
+  "docker-compose": {
+    "ignorePaths": [
+      "old"
+    ]
+  },
+  "hostRules": [
+    {
+      "matchHost": "docker.io",
+      "concurrentRequestLimit": 2
+    }
+  ],
+  "packageRules": [
+    {
+      "matchPackageNames": [
+        "ghcr.io/jellyfin/jellyfin-vue"
+      ],
+      "versioning": "regex:^unstable\\.(?<major>\\d+)-(?<minor>\\d+)-(?<patch>\\d+)\\.(?<build>[^.]+)?$"
+    }
   ]
 }
