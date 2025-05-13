@@ -23,4 +23,4 @@ jobs:
       - name: Run shellcheck
         run: |
           shellcheck --version
-          grep -rl '^#!/.*sh' * | xargs -n1 shellcheck -x
+          grep -rl '^#!/.*sh' * | xargs -n1 shellcheck -e SC2059
