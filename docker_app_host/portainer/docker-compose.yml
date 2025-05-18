@@ -1,7 +1,7 @@
 services:
   portainer:
     container_name: portainer
-    image: portainer/portainer-ce:2.29.2-alpine
+    image: portainer/portainer-ce:2.30.0-alpine
     restart: unless-stopped
     environment:
       - TZ=America/New_York
