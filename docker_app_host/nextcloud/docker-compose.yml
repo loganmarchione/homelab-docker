@@ -30,7 +30,7 @@ services:
       - traefik.http.middlewares.nextcloud_headers.headers.frameDeny=true
   nextcloud-redis:
     container_name: nextcloud-redis
-    image: redis:7.4.3
+    image: redis:8.0.1
     restart: unless-stopped
     networks:
       - nextcloud
