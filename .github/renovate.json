@@ -27,12 +27,20 @@
         "ghcr.io/jellyfin/jellyfin-vue"
       ],
       "versioning": "regex:^unstable\\.(?<major>\\d+)-(?<minor>\\d+)-(?<patch>\\d+)\\.(?<build>[^.]+)?$",
-      "automerge": true
+      "automerge": true,
+      "automergeType": "pr",
+      "platformAutomerge": true
     },
     {
-      "matchUpdateTypes": ["patch"],
-      "matchManagers": ["docker-compose"],
-      "automerge": true
+      "matchManagers": [
+        "docker-compose"
+      ],
+      "matchUpdateTypes": [
+        "patch"
+      ],
+      "automerge": true,
+      "automergeType": "pr",
+      "platformAutomerge": true
     }
   ]
 }
