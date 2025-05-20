@@ -26,7 +26,8 @@
       "matchPackageNames": [
         "ghcr.io/jellyfin/jellyfin-vue"
       ],
-      "versioning": "regex:^unstable\\.(?<major>\\d+)-(?<minor>\\d+)-(?<patch>\\d+)\\.(?<build>[^.]+)?$"
+      "versioning": "regex:^unstable\\.(?<major>\\d+)-(?<minor>\\d+)-(?<patch>\\d+)\\.(?<build>[^.]+)?$",
+      "automerge": true
     },
     {
       "matchUpdateTypes": ["patch"],
