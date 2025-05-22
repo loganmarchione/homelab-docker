@@ -4,7 +4,7 @@ Everything in here is *heavily* customized for my homelab. It will not work for 
 
 # homelab-docker
 
-[![yamllint](https://github.com/loganmarchione/homelab-docker/actions/workflows/yamllint.yml/badge.svg)](https://github.com/loganmarchione/homelab-docker/actions/workflows/yamllint.yml) [![shellcheck](https://github.com/loganmarchione/homelab-docker/actions/workflows/shellcheck.yml/badge.svg)](https://github.com/loganmarchione/homelab-docker/actions/workflows/shellcheck.yml)
+[![Lint](https://github.com/loganmarchione/homelab-docker/actions/workflows/lint.yml/badge.svg)](https://github.com/loganmarchione/homelab-docker/actions/workflows/lint.yml)
 
 A collection of Docker Compose files
 
