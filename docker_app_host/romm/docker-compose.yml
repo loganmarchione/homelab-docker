@@ -35,7 +35,7 @@ services:
       - 'romm_redis_data:/redis-data'
       - 'romm_assets:/romm/assets'
       - 'romm_config:/romm/config'
-      - '/custom_mounts/media/library/ROMs:/romm/library'
+      - '/custom_mounts/media/library/ROMs:/romm/library:ro'
     labels:
       - traefik.enable=true
       - traefik.http.routers.romm.rule=Host(`romm.${SECRET_INTERNAL_DOMAIN_NAME}`)
