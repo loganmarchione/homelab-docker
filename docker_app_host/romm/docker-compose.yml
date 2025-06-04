@@ -19,7 +19,7 @@ services:
       retries: 3
   romm:
     container_name: romm
-    image: rommapp/romm:3.8.2
+    image: rommapp/romm:3.10.0
     restart: unless-stopped
     environment:
       - TZ=America/New_York
@@ -35,7 +35,7 @@ services:
       - 'romm_redis_data:/redis-data'
       - 'romm_assets:/romm/assets'
       - 'romm_config:/romm/config'
-      - '/custom_mounts/media/library/ROMs:/romm/library:ro'
+      - '/custom_mounts/media/library/ROMs:/romm/library'
     labels:
       - traefik.enable=true
       - traefik.http.routers.romm.rule=Host(`romm.${SECRET_INTERNAL_DOMAIN_NAME}`)
