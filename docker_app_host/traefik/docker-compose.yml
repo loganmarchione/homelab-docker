@@ -26,6 +26,7 @@ services:
           - portainer.${SECRET_INTERNAL_DOMAIN_NAME}
           - prometheus.${SECRET_INTERNAL_DOMAIN_NAME}
           - recipes.${SECRET_INTERNAL_DOMAIN_NAME}
+          - romm.${SECRET_INTERNAL_DOMAIN_NAME}
           - startpage.${SECRET_INTERNAL_DOMAIN_NAME}
           - tubearchivist.${SECRET_INTERNAL_DOMAIN_NAME}
           - traefik.${SECRET_INTERNAL_DOMAIN_NAME}
