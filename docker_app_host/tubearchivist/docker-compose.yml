@@ -14,8 +14,9 @@ services:
       - tubearchivist-elasticsearch
       - tubearchivist-redis
     volumes:
-      - '/custom_mounts/media/library/YouTube:/youtube'
       - 'tubearchivist_cache:/cache'
+      # The directory below is huge, so storing it on the NAS
+      - '/custom_mounts/media/library/YouTube:/youtube'
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/api/health"]
       interval: 2m
