@@ -14,8 +14,9 @@ services:
       - tubearchivist-elasticsearch
       - tubearchivist-redis
     volumes:
-      - '/custom_mounts/media/library/YouTube:/youtube'
       - 'tubearchivist_cache:/cache'
+      # The directory below is huge, so storing it on the NAS
+      - '/custom_mounts/media/library/YouTube:/youtube'
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/api/health"]
       interval: 2m
@@ -46,7 +47,7 @@ services:
       retries: 3
       start_period: 30s
   tubearchivist-elasticsearch:
-    container_name: tubearchivist-elasticsearch  # Need to use a dash since Tube Archivist connects over HTTP and we need a valid DNS name
+    container_name: tubearchivist-elasticsearch
     image: elasticsearch:8.18.2
     restart: unless-stopped
     environment:
