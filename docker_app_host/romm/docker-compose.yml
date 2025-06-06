@@ -31,10 +31,11 @@ services:
     depends_on:
       - mariadb
     volumes:
-      - 'romm_resources:/romm/resources'
       - 'romm_redis_data:/redis-data'
       - 'romm_assets:/romm/assets'
       - 'romm_config:/romm/config'
+      # The directories below are huge, so storing them on the NAS
+      - '/custom_mounts/media/library/ROMs/romm_resources:/romm/resources'
       - '/custom_mounts/media/library/ROMs:/romm/library:ro'
     labels:
       - traefik.enable=true
