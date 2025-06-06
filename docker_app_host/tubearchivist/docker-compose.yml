@@ -46,7 +46,7 @@ services:
       retries: 3
       start_period: 30s
   tubearchivist-elasticsearch:
-    container_name: tubearchivist-elasticsearch  # Need to use a dash since Tube Archivist connects over HTTP and we need a valid DNS name
+    container_name: tubearchivist-elasticsearch
     image: elasticsearch:8.18.2
     restart: unless-stopped
     environment:
