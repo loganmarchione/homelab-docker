@@ -21,7 +21,7 @@ services:
       retries: 3
       start_period: 30s
   opensearch:
-    container_name: graylog-opensearch  # Need to use a dash since Graylog connects over HTTP and we need a valid DNS name
+    container_name: graylog-opensearch
     image: opensearchproject/opensearch:2.19.2
     restart: unless-stopped
     environment:
