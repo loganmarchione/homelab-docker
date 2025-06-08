@@ -1,7 +1,7 @@
 services:
   tubearchivist:
     container_name: tubearchivist
-    image: bbilly1/tubearchivist:v0.5.2
+    image: bbilly1/tubearchivist:v0.5.3
     restart: unless-stopped
     environment:
       - TZ=America/New_York
