@@ -36,7 +36,8 @@
         "docker-compose"
       ],
       "matchUpdateTypes": [
-        "patch"
+        "patch",
+        "digest"
       ],
       "automerge": true,
       "automergeType": "pr",
