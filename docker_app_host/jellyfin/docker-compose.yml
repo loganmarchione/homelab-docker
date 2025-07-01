@@ -27,7 +27,7 @@ services:
       - traefik.http.services.jellyfin.loadbalancer.server.port=8096
   jellyfin-vue:
     container_name: jellyfin-vue
-    image: ghcr.io/jellyfin/jellyfin-vue:unstable.2025-06-28.4019a7d
+    image: ghcr.io/jellyfin/jellyfin-vue:unstable.2025-06-30.ff0360b
     restart: unless-stopped
     environment:
       - TZ=America/New_York
