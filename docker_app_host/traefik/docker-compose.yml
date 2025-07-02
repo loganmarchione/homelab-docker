@@ -56,6 +56,11 @@ services:
       - traefik.port=443
       - traefik.http.routers.traefik.middlewares=auth
       - "traefik.http.middlewares.auth.basicauth.usersfile=/custom/files/traefik_users"
+      - traefik.http.routers.metrics.rule=Host(`traefik.${SECRET_INTERNAL_DOMAIN_NAME}`) && PathPrefix(`/metrics`)
+      - traefik.http.routers.metrics.tls=true
+      - traefik.http.routers.metrics.entrypoints=websecure
+      - traefik.http.routers.metrics.service=prometheus@internal
+      - traefik.http.routers.metrics.middlewares=auth
   whoami:
     container_name: whoami
     image: traefik/whoami:v1.11.0
