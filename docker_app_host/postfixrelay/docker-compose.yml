@@ -1,6 +1,7 @@
 services:
   postfixrelay:
     container_name: postfixrelay
+    # adding digest for projects that receive regular security updates outside of major/minor/patch version bumps
     image: loganmarchione/docker-postfixrelay:1.6.2@sha256:f69a1c1df578847eb6f144f750e469ac4108b3d234672a0d30f821d638bab9e0
     restart: unless-stopped
     environment:
