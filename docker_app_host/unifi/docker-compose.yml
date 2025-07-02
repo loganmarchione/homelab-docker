@@ -2,7 +2,7 @@ services:
   mongo:
     container_name: unifi-mongo
     # adding digest for projects that receive regular security updates outside of major/minor/patch version bumps
-    image: mongo:7.0.21@sha256:2c29f46a1b56f33364ad5375639526a121bc8dfdefc89a901d3d7992b110c877
+    image: mongo:8.0.11@sha256:5941949d3887e40be5175787aade07dc052f2cddb8ce21b740c3948eba6a3ed0
     restart: unless-stopped
     environment:
       - TZ=UTC
