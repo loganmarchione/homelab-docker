@@ -32,7 +32,8 @@ services:
       - traefik.http.services.tubearchivist.loadbalancer.server.port=8000
   tubearchivist-redis:
     container_name: tubearchivist-redis
-    image: redis:8.0.2
+    # adding digest for projects that receive regular security updates outside of major/minor/patch version bumps
+    image: redis:8.0.2@sha256:b43d2dcbbdb1f9e1582e3a0f37e53bf79038522ccffb56a25858969d7a9b6c11
     restart: unless-stopped
     networks:
       - tubearchivist
