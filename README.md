@@ -15,4 +15,4 @@ This directory contains the directories below. See each directory for a more det
 | Directory                            | Contents              | State                                           |
 |--------------------------------------|-----------------------|-------------------------------------------------|
 | [`docker_app_host`](docker_app_host) | Docker Compose files  | Currently being used, aka "production"          |
-| [`old`](old)                         | Docker Compose files  | Not being used anymore                          |
+| [`old_apps`](old_apps)               | Docker Compose files  | Not being used anymore                          |
