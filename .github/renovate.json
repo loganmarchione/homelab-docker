@@ -9,6 +9,7 @@
   "labels": [
     "renovatebot"
   ],
+  "includePaths": ["docker_app_host/manyfold/docker-compose.yml"],
   "separateMinorPatch": true,
   "docker-compose": {
     "ignorePaths": [
