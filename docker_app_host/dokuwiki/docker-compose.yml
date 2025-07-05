@@ -2,7 +2,7 @@ services:
   dokuwiki:
     container_name: dokuwiki
     # adding digest for projects that receive regular security updates outside of major/minor/patch version bumps
-    image: php:8.3-apache-bullseye@sha256:8eed1af3db313a57b81cb4d96f676ac525a6a439d72ab82e78d48ce4aa00f343
+    image: php:8.4-apache-bullseye@sha256:f68ae103964c48258d45394828084170a93d9b0b1d6ec9242e689675865e2c38
     restart: unless-stopped
     environment:
       - TZ=America/New_York
