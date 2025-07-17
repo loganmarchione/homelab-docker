@@ -2,7 +2,7 @@ services:
   mariadb:
     container_name: romm-mariadb
     # adding digest for projects that receive regular security updates outside of major/minor/patch version bumps
-    image: mariadb:11.8.2-noble@sha256:ee8fadc8e4b4244b636a1d7543dd8c8471a2d66d8de3033312bd3ab33f28db5e
+    image: mariadb:11.8.2-noble@sha256:2bcbaec92bd9d4f6591bc8103d3a8e6d0512ee2235506e47a2e129d190444405
     restart: unless-stopped
     environment:
       - TZ=America/New_York
