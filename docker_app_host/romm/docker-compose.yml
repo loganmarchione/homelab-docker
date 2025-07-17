@@ -20,7 +20,7 @@ services:
       retries: 3
   romm:
     container_name: romm
-    image: rommapp/romm:3.10.2
+    image: rommapp/romm:3.10.3
     restart: unless-stopped
     environment:
       - TZ=America/New_York
