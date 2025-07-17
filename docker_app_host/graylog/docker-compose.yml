@@ -2,7 +2,7 @@ services:
   mongo:
     container_name: graylog-mongo
     # adding digest for projects that receive regular security updates outside of major/minor/patch version bumps
-    image: mongo:7.0.21@sha256:3d715950d83061ff2fbc910d12d3703212538cacf6b3003e3736fa5c7f51a2e1
+    image: mongo:8.0.11@sha256:dca8d11fe4673f4409e27361e9c5717bd35103c9c15b5b50fc6b2913b2407fed
     restart: unless-stopped
     environment:
       - TZ=UTC
