@@ -2,7 +2,7 @@ services:
   startpage:
     container_name: startpage
     # adding digest for projects that receive regular security updates outside of major/minor/patch version bumps
-    image: loganmarchione/docker-php-startpage:0.9.11@sha256:1203a5e9faf1a550122da415bb23f5cd6ccff9f47fc783f6866b6e92c3efd1ea
+    image: loganmarchione/docker-php-startpage:0.9.11@sha256:a26059e691e3092ba88b6ecffe534d3ab674c5965a4dcbc068345dfee63f3204
     restart: unless-stopped
     networks:
       - proxy
