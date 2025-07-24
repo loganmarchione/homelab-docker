@@ -2,7 +2,7 @@ services:
   influxdb:
     container_name: monitoring-influxdb
     # adding digest for projects that receive regular security updates outside of major/minor/patch version bumps
-    image: influxdb:1.11.8@sha256:d38490be268c087adfbc7b833ab082c3427c1aa3393126e791c8a883c62929b1
+    image: influxdb:2.7.12@sha256:b357bde62be5ae1ce1a0dea4f04e7194a62ae82fb4ccc2f4993df3f5209a40d0
     restart: unless-stopped
     environment:
       - TZ=UTC
