@@ -1,7 +1,7 @@
 services:
   traefik:
     container_name: traefik
-    image: traefik:v3.4.5
+    image: traefik:v3.5.0
     restart: unless-stopped
     environment:
       - TZ=America/New_York
