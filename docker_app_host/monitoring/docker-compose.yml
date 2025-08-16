@@ -82,7 +82,7 @@ services:
       - 'telegraf_x509:/etc/telegraf:ro'
   grafana:
     container_name: monitoring-grafana
-    image: grafana/grafana-oss:12.1.0
+    image: grafana/grafana-oss:12.1.1
     restart: unless-stopped
     environment:
       - TZ=UTC
