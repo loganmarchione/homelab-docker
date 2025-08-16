@@ -1,7 +1,7 @@
 services:
   nextcloud:
     container_name: nextcloud
-    image: nextcloud:31.0.7-apache
+    image: nextcloud:31.0.8-apache
     restart: unless-stopped
     environment:
       - TZ=America/New_York
@@ -47,7 +47,7 @@ services:
       start_period: 30s
   nextcloud-cron:
     container_name: nextcloud-cron
-    image: nextcloud:31.0.7-apache
+    image: nextcloud:31.0.8-apache
     restart: unless-stopped
     environment:
       - TZ=America/New_York
