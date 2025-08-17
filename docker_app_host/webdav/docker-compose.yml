@@ -2,7 +2,7 @@ services:
   webdav:
     container_name: webdav
     # adding digest for projects that receive regular security updates outside of major/minor/patch version bumps
-    image: loganmarchione/docker-webdav-nginx:1.0.2@sha256:de55d00e83d0efb94745fd30b1e4f2ae1a5a4fd9a86b997bfc5cf1213dc580c3
+    image: loganmarchione/docker-webdav-nginx:1.0.2@sha256:3f1c9f77a6c846ef193a7912a6f9e69ff1432cb0f14ca466b233c78cc2b907ae
     restart: unless-stopped
     env_file:
       - /custom/files/webdav.env
