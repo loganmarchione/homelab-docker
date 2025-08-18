@@ -1,0 +1,22 @@
+services:
+  miniflux:
+    container_name: miniflux
+    image: miniflux/miniflux:2.2.11
+    restart: unless-stopped
+    environment:
+      - TZ=America/New_York
+    env_file:
+      - /custom/files/miniflux.env
+    networks:
+      - proxy
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.miniflux.rule=Host(`miniflux.${SECRET_INTERNAL_DOMAIN_NAME}`)
+      - traefik.http.routers.miniflux.tls=true
+      - traefik.http.routers.miniflux.tls.certresolver=cloudflare
+      - traefik.http.routers.miniflux.entrypoints=websecure
+      - traefik.http.services.miniflux.loadbalancer.server.port=8080
+
+networks:
+  proxy:
+    external: true
