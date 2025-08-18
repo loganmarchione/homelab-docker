@@ -20,6 +20,7 @@ services:
           - jellyfin-vue.${SECRET_INTERNAL_DOMAIN_NAME}
           - kiwix.${SECRET_INTERNAL_DOMAIN_NAME}
           - manyfold.${SECRET_INTERNAL_DOMAIN_NAME}
+          - miniflux.${SECRET_INTERNAL_DOMAIN_NAME}
           - navidrome.${SECRET_INTERNAL_DOMAIN_NAME}
           - nextcloud.${SECRET_INTERNAL_DOMAIN_NAME}
           - planka.${SECRET_INTERNAL_DOMAIN_NAME}
