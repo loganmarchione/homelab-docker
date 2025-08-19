@@ -1,7 +1,7 @@
 services:
   planka:
     container_name: planka
-    image: ghcr.io/plankanban/planka:1.26.2
+    image: ghcr.io/plankanban/planka:1.26.2@sha256:26706529144928fc232674dd361131060bcd3dfdcf7f4e750860125f3a4cf4f4
     restart: unless-stopped
     environment:
       - TZ=America/New_York

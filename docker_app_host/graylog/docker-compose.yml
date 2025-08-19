@@ -23,7 +23,7 @@ services:
       start_period: 30s
   opensearch:
     container_name: graylog-opensearch
-    image: opensearchproject/opensearch:2.19.3
+    image: opensearchproject/opensearch:2.19.3@sha256:a54d2deebe965848afc0d06f5088baa0fbf77fedb3a2c62de9e032eb6d6aaf7f
     restart: unless-stopped
     environment:
       - TZ=UTC
@@ -48,7 +48,7 @@ services:
       start_period: 30s
   graylog:
     container_name: graylog
-    image: graylog/graylog:6.3.2
+    image: graylog/graylog:6.3.2@sha256:4af068d22a2c461be4e0fb6d9a143d562397fa824b1fc1e4bf16aa6ba8cb4afa
     restart: unless-stopped
     environment:
       - TZ=UTC
@@ -76,7 +76,7 @@ services:
       - traefik.http.services.graylogweb.loadbalancer.server.port=9000
   geoipupdate:
     container_name: graylog-geoipupdate
-    image: ghcr.io/maxmind/geoipupdate:v7.1.1
+    image: ghcr.io/maxmind/geoipupdate:v7.1.1@sha256:faecdca22579730ab0b7dea5aa9af350bb3c93cb9d39845c173639ead30346d2
     restart: unless-stopped
     environment:
       - TZ=UTC
