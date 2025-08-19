@@ -30,7 +30,6 @@ services:
       - traefik.http.middlewares.nextcloud_headers.headers.frameDeny=true
   nextcloud-redis:
     container_name: nextcloud-redis
-    # adding digest for projects that receive regular security updates outside of major/minor/patch version bumps
     image: redis:8.2.1@sha256:cc2dfb8f5151da2684b4a09bd04b567f92d07591d91980eb3eca21df07e12760
     restart: unless-stopped
     networks:
