@@ -1,7 +1,6 @@
 services:
   mariadb:
     container_name: romm-mariadb
-    # adding digest for projects that receive regular security updates outside of major/minor/patch version bumps
     image: mariadb:11.8.3-noble@sha256:272084c2dec70619714df329c4ffcb336e3f8c723072c3f56f2e4015997bbf2c
     restart: unless-stopped
     environment:
@@ -20,7 +19,7 @@ services:
       retries: 3
   romm:
     container_name: romm
-    image: rommapp/romm:4.1.2
+    image: rommapp/romm:4.1.2@sha256:14ddc5abbfda99fcf60db9fa124b52727518b82deae8ece63f1e1b70873f471a
     restart: unless-stopped
     environment:
       - TZ=America/New_York

@@ -1,7 +1,6 @@
 services:
   mongo:
     container_name: unifi-mongo
-    # adding digest for projects that receive regular security updates outside of major/minor/patch version bumps
     image: mongo:7.0.23@sha256:507b9f1049ed2499e3fe7568df001686afca2d220365f4bd85eaa610be4b5756
     restart: unless-stopped
     environment:
@@ -24,7 +23,7 @@ services:
       start_period: 30s
   unifi:
     container_name: unifi
-    image: lscr.io/linuxserver/unifi-network-application:9.3.45
+    image: lscr.io/linuxserver/unifi-network-application:9.3.45@sha256:ee536899e67aaaf53e310cf3baa0c74293170902514c216f967795df47a68626
     restart: unless-stopped
     environment:
       - TZ=America/New_York

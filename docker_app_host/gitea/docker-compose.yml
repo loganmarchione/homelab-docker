@@ -1,7 +1,7 @@
 services:
   gitea:
     container_name: gitea
-    image: gitea/gitea:1.24.5
+    image: gitea/gitea:1.24.5@sha256:137a322f0308056415bc1a14a4ca8607b2e8efcb8154dfc5049b1f7f8b0a9b71
     restart: unless-stopped
     environment:
       - TZ=America/New_York
@@ -20,7 +20,7 @@ services:
       - traefik.http.services.git.loadbalancer.server.port=3000
   drone:
     container_name: drone
-    image: drone/drone:2.26.0
+    image: drone/drone:2.26.0@sha256:e91d56c5368fae936be21d779c11e82e85ada2cf769290b3e9e3aca1b75d3d73
     restart: unless-stopped
     environment:
       - TZ=America/New_York
@@ -39,7 +39,7 @@ services:
       - traefik.http.services.drone.loadbalancer.server.port=80
   drone-runner:
     container_name: drone-runner
-    image: drone/drone-runner-docker:1.8.4
+    image: drone/drone-runner-docker:1.8.4@sha256:9cbd70a393ebeb4f9eb5b4877bcf8b1be04fb42bdd174ded32c4d1d48da72a5e
     restart: unless-stopped
     environment:
       - TZ=America/New_York

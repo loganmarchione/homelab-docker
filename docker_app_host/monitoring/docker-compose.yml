@@ -1,7 +1,6 @@
 services:
   influxdb:
     container_name: monitoring-influxdb
-    # adding digest for projects that receive regular security updates outside of major/minor/patch version bumps
     image: influxdb:1.11.8@sha256:1f877df099074570f1aeb50e019506851aff177bcc3e34e63c5900539f9db261
     restart: unless-stopped
     environment:
@@ -23,7 +22,7 @@ services:
       start_period: 30s
   prometheus-server:
     container_name: monitoring-prometheus-server
-    image: prom/prometheus:v3.5.0
+    image: prom/prometheus:v3.5.0@sha256:63805ebb8d2b3920190daf1cb14a60871b16fd38bed42b857a3182bc621f4996
     restart: unless-stopped
     environment:
       - TZ=UTC
@@ -42,7 +41,7 @@ services:
       - traefik.http.services.prometheus.loadbalancer.server.port=9090
   telegraf-docker-host:
     container_name: monitoring-telegraf-docker-host
-    image: telegraf:1.35.3-alpine
+    image: telegraf:1.35.3-alpine@sha256:ef81917ebf37c5e115aa9850acfe6e259cd930a52d9ab631369860f5ad5f714a
     restart: unless-stopped
     environment:
       - TZ=UTC
@@ -58,7 +57,7 @@ services:
       - 'telegraf_docker_host:/etc/telegraf:ro'
   telegraf-whois:
     container_name: monitoring-telegraf-whois
-    image: telegraf:1.35.3-alpine
+    image: telegraf:1.35.3-alpine@sha256:ef81917ebf37c5e115aa9850acfe6e259cd930a52d9ab631369860f5ad5f714a
     restart: unless-stopped
     environment:
       - TZ=UTC
@@ -70,7 +69,7 @@ services:
       - 'telegraf_whois:/etc/telegraf:ro'
   telegraf-x509:
     container_name: monitoring-telegraf-x509
-    image: telegraf:1.35.3-alpine
+    image: telegraf:1.35.3-alpine@sha256:ef81917ebf37c5e115aa9850acfe6e259cd930a52d9ab631369860f5ad5f714a
     restart: unless-stopped
     environment:
       - TZ=UTC
@@ -82,7 +81,7 @@ services:
       - 'telegraf_x509:/etc/telegraf:ro'
   grafana:
     container_name: monitoring-grafana
-    image: grafana/grafana-oss:12.1.1
+    image: grafana/grafana-oss:12.1.1@sha256:5749a0e982878aedaa2d320ed14d3bdce7a040a938f482258670009d419a597f
     restart: unless-stopped
     environment:
       - TZ=UTC

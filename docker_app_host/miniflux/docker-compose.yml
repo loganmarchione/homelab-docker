@@ -1,7 +1,7 @@
 services:
   miniflux:
     container_name: miniflux
-    image: miniflux/miniflux:2.2.11
+    image: miniflux/miniflux:2.2.11@sha256:d8e0f95eaa319211642e22e7ee78f59b1c224071b40670635ad29c4f04e7b036
     restart: unless-stopped
     environment:
       - TZ=America/New_York

@@ -1,7 +1,7 @@
 services:
   tubearchivist:
     container_name: tubearchivist
-    image: bbilly1/tubearchivist:v0.5.6
+    image: bbilly1/tubearchivist:v0.5.6@sha256:22698223ed524a9cdf8bbc30af87788c1100e3e8979914ce2b41747337f95055
     restart: unless-stopped
     environment:
       - TZ=America/New_York
@@ -32,7 +32,6 @@ services:
       - traefik.http.services.tubearchivist.loadbalancer.server.port=8000
   tubearchivist-redis:
     container_name: tubearchivist-redis
-    # adding digest for projects that receive regular security updates outside of major/minor/patch version bumps
     image: redis:8.2.1@sha256:cc2dfb8f5151da2684b4a09bd04b567f92d07591d91980eb3eca21df07e12760
     restart: unless-stopped
     networks:
@@ -49,7 +48,7 @@ services:
       start_period: 30s
   tubearchivist-elasticsearch:
     container_name: tubearchivist-elasticsearch
-    image: elasticsearch:8.18.5
+    image: elasticsearch:8.18.5@sha256:4aa7d5e353af37bbb9a03530c1d47ee705b54efeff193969afa90f09113dfb5a
     restart: unless-stopped
     environment:
       - TZ=UTC
