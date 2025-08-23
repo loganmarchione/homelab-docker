@@ -1,7 +1,7 @@
 services:
   homebox:
     container_name: homebox
-    image: ghcr.io/sysadminsmedia/homebox:0.20.2-rootless@sha256:7ff106e2a22208534543847e243bdb0a520daa221e51fbb7ff18c601eca52a38
+    image: ghcr.io/sysadminsmedia/homebox:0.21.0-rootless@sha256:572a356f3c18b880feb83987aad1c32c9472fd3212f02312342451fee78792c0
     restart: unless-stopped
     environment:
       - TZ=America/New_York
