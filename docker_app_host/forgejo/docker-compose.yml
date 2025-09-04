@@ -1,0 +1,52 @@
+services:
+  postgres:
+    container_name: forgejo-postgres
+    image: postgres:17.6-alpine@sha256:3406990b6e4c7192317b6fdc5680498744f6142f01f0287f4ee0420d8c74063c
+    restart: unless-stopped
+    environment:
+      - TZ=UTC
+    env_file:
+      - /custom/files/forgejo.env
+    networks:
+      - forgejo
+    volumes:
+      - 'postgres_data:/var/lib/postgresql/data'
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "forgejo"]
+      start_period: 10s
+      interval: 10s
+      timeout: 5s
+      retries: 3
+  forgejo:
+    container_name: forgejo
+    image: codeberg.org/forgejo/forgejo:12.0.2-rootless@sha256:eaf9b09bc07fe248c224b6b311ed16b619245ca41707a42045b805a3d0382d10
+    restart: unless-stopped
+    environment:
+      - TZ=America/New_York
+    env_file:
+      - /custom/files/forgejo.env
+    networks:
+      - forgejo
+      - proxy
+    depends_on:
+      - postgres
+    volumes:
+      - 'forgejo_data:/var/lib/gitea'
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.forgejo.rule=Host(`forgejo.${SECRET_INTERNAL_DOMAIN_NAME}`)
+      - traefik.http.routers.forgejo.tls=true
+      - traefik.http.routers.forgejo.tls.certresolver=cloudflare
+      - traefik.http.routers.forgejo.entrypoints=websecure
+      - traefik.http.services.forgejo.loadbalancer.server.port=3000
+
+networks:
+  forgejo:
+  proxy:
+    external: true
+
+volumes:
+  forgejo_data:
+    driver: local
+  postgres_data:
+    driver: local
