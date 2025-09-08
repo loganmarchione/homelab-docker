@@ -31,6 +31,7 @@ services:
     depends_on:
       - postgres
     volumes:
+      - 'forgejo_config:/etc/gitea'
       - 'forgejo_data:/var/lib/gitea'
     labels:
       - traefik.enable=true
@@ -46,6 +47,8 @@ networks:
     external: true
 
 volumes:
+  forgejo_config:
+    driver: local
   forgejo_data:
     driver: local
   postgres_data:
