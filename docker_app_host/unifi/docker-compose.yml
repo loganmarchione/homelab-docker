@@ -1,7 +1,7 @@
 services:
   mongo:
     container_name: unifi-mongo
-    image: mongo:7.0.23@sha256:228dfdc4e3ee9593ca98dcd4ae6997a788e57cb68a0836b9e8107555a7096705
+    image: mongo:8.0.13@sha256:7acbcf333608e67bc140821d31144dcc579e1479d12d5292d67c74b470082a6a
     restart: unless-stopped
     environment:
       - TZ=UTC
