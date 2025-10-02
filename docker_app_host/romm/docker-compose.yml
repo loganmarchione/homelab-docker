@@ -1,7 +1,7 @@
 services:
   mariadb:
     container_name: romm-mariadb
-    image: mariadb:11.8.3-noble@sha256:851a6020c97b9eae7736b6fb275800601d64635222054d3a1b1b3c4abdfa117a
+    image: mariadb:12.0.2-noble@sha256:03a03a6817bb9eaa21e5aed1b734d432ec3f80021f5a2de1795475f158217545
     restart: unless-stopped
     environment:
       - TZ=America/New_York
