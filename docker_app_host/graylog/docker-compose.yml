@@ -47,7 +47,7 @@ services:
       start_period: 30s
   graylog:
     container_name: graylog
-    image: graylog/graylog:6.3.3@sha256:badc1c0ba33fd2bdd34b57867f28b375cfc119fd0d81e2cb50ba4407bcb6cfa1
+    image: graylog/graylog:6.3.4@sha256:ff357fedc2c9de8997de91fbc179342c08d09471fc3a03d90b32bc28617f30e1
     restart: unless-stopped
     environment:
       - TZ=UTC
