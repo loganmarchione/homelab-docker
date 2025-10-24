@@ -9,8 +9,9 @@ services:
     networks:
       - monitoring
     ports:
-      - '0.0.0.0:8086:8086/tcp'
-      - '0.0.0.0:8089:8089/udp'
+      - '0.0.0.0:8086:8086/tcp'  # All databases
+      - '0.0.0.0:8089:8089/udp'  # Proxmox
+      - '0.0.0.0:8090:8090/udp'  # Proxmox Backup Server
     volumes:
       - 'influx_config:/etc/influxdb'
       - 'influx_data:/var/lib/influxdb'
