@@ -22,7 +22,7 @@ services:
       start_period: 30s
   opensearch:
     container_name: graylog-opensearch
-    image: opensearchproject/opensearch:2.19.3@sha256:e96cc6ae1500a073d973c0906f30f7cf4d9c461f32f855f9242a2da933660cdd
+    image: opensearchproject/opensearch:3.3.2@sha256:6ab2d7f30f6b30f97ceab4fe2a4d371f734e18c6b7639468af30db93c33316ca
     restart: unless-stopped
     environment:
       - TZ=UTC
