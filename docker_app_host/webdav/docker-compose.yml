@@ -1,7 +1,7 @@
 services:
   webdav:
     container_name: webdav
-    image: loganmarchione/docker-webdav-nginx:1.1.0@sha256:972b65e2f1868f0a754f284b85720db06c6dd608831027fdadcc413505c8ed93
+    image: loganmarchione/docker-webdav-nginx:1.1.0@sha256:6d8b614be194cfcc50f2757a2b8eeb0cd0ed12bf2ffde30ea57308d73a7dd39f
     restart: unless-stopped
     env_file:
       - /custom/files/webdav.env
