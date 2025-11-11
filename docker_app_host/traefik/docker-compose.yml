@@ -12,6 +12,7 @@ services:
         aliases:  # These are needed to be able to ping between hosts in separate containers
           - audiobookshelf.${SECRET_INTERNAL_DOMAIN_NAME}
           - drone.${SECRET_INTERNAL_DOMAIN_NAME}
+          - feishin.${SECRET_INTERNAL_DOMAIN_NAME}
           - forgejo.${SECRET_INTERNAL_DOMAIN_NAME}
           - git.${SECRET_INTERNAL_DOMAIN_NAME}
           - grafana.${SECRET_INTERNAL_DOMAIN_NAME}
