@@ -8,6 +8,7 @@ services:
     env_file:
       - /custom/files/navidrome.env
     networks:
+      - navidrome
       - proxy
     volumes:
       - 'navidrome_data:/data'
@@ -19,8 +20,31 @@ services:
       - traefik.http.routers.navidrome.tls.certresolver=cloudflare
       - traefik.http.routers.navidrome.entrypoints=websecure
       - traefik.http.services.navidrome.loadbalancer.server.port=4533
+  feishin:
+    container_name: feishin
+    image: ghcr.io/jeffvli/feishin:0.21.1@sha256:60d90de04e89f2ed561d8f4278170d3fd71501856215ec417fd881fb21d9e6b9
+    restart: unless-stopped
+    environment:
+      - SERVER_NAME=navidrome
+      - SERVER_LOCK=true
+      - SERVER_TYPE=navidrome
+      - SERVER_URL=https://navidrome.${SECRET_INTERNAL_DOMAIN_NAME}
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/New_York
+    networks:
+      - navidrome
+      - proxy
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.feishin.rule=Host(`feishin.${SECRET_INTERNAL_DOMAIN_NAME}`)
+      - traefik.http.routers.feishin.tls=true
+      - traefik.http.routers.feishin.tls.certresolver=cloudflare
+      - traefik.http.routers.feishin.entrypoints=websecure
+      - traefik.http.services.feishin.loadbalancer.server.port=9180
 
 networks:
+  navidrome:
   proxy:
     external: true
 
