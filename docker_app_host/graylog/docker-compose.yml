@@ -1,7 +1,7 @@
 services:
   mongo:
     container_name: graylog-mongo
-    image: mongo:7.0.26@sha256:542095b9517562dbbd4dd061a19459168237eb5f26841ac0e56c89ebb2eb4173
+    image: mongo:8.2.2@sha256:7245ffb851d149dbfac67397caf91bae4974d899972f9fd1d8985fc6eea3c13d
     restart: unless-stopped
     environment:
       - TZ=UTC
