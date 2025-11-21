@@ -1,7 +1,7 @@
 services:
   manyfold:
     container_name: manyfold
-    image: ghcr.io/manyfold3d/manyfold-solo:0.129.0@sha256:9fb50768c247b132fd671ade6400855a2992feed406098dc10eab175963dfa58
+    image: ghcr.io/manyfold3d/manyfold-solo:0.129.2@sha256:acb4296f174021aed8cb1cbeef330546746eecb29c720ac2ecdaa6ebcd8cf5c3
     restart: unless-stopped
     environment:
       - TZ=America/New_York
