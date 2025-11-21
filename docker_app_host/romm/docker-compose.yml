@@ -19,7 +19,7 @@ services:
       retries: 3
   romm:
     container_name: romm
-    image: rommapp/romm:4.3.2@sha256:1895c339b3c7ca62d52f809f5e4c747d78fc8291ea5ee88b3b57df84acf33449
+    image: rommapp/romm:4.4.1@sha256:b909e95d1aab88db9817be700183fda8d24094b3e7c28355ddbd066e2659fc8f
     restart: unless-stopped
     environment:
       - TZ=America/New_York
