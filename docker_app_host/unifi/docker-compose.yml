@@ -23,7 +23,7 @@ services:
       start_period: 30s
   unifi:
     container_name: unifi
-    image: lscr.io/linuxserver/unifi-network-application:9.5.21@sha256:f45155f97d755373f5ad06abafa59fd2a5c2df690ae5d9e6d22e69548788c11b
+    image: lscr.io/linuxserver/unifi-network-application:10.0.160@sha256:f782557d505f16a9dac8fac7bfdfc865c272ce497e6fd0b66ef0822a0893f08d
     restart: unless-stopped
     environment:
       - TZ=America/New_York
