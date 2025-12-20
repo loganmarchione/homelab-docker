@@ -1,7 +1,7 @@
 services:
   postgres:
     container_name: forgejo-postgres
-    image: postgres:17.7-alpine@sha256:dfb95bc50724a7398ee250d72a4318cd51ccf844c5956595722520d449408176
+    image: postgres:17.7-alpine@sha256:ff4ccc02b97e0ebb6b328ef9ff92522f95586f83be6801896b615088defc8ad2
     restart: unless-stopped
     environment:
       - TZ=UTC
