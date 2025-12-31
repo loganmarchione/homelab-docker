@@ -1,7 +1,7 @@
 services:
   influxdb:
     container_name: monitoring-influxdb
-    image: influxdb:1.12.2@sha256:62a9fa847313a43d3ac11c1eb7b32676dde555a58d8d9de39dcbec62abf4a00f
+    image: influxdb:1.12.2@sha256:db03b9c599588cd5caded6df8b8258841017bf186898c6133a4f99b4d6134395
     restart: unless-stopped
     environment:
       - TZ=UTC
