@@ -12,7 +12,7 @@ services:
       - proxy
     volumes:
       - 'navidrome_data:/data'
-      - '/custom_mounts/media/library/iTunes/Playlist:/music:ro'
+      - '/custom_mounts/media/library/Music:/music:ro'
     labels:
       - traefik.enable=true
       - traefik.http.routers.navidrome.rule=Host(`navidrome.${SECRET_INTERNAL_DOMAIN_NAME}`)
