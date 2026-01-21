@@ -25,6 +25,7 @@ services:
     image: ghcr.io/jeffvli/feishin:0.22.0@sha256:23e186a75570562c20897099576a7a911975076728dcce19db73ab1948bd9b5c
     restart: unless-stopped
     environment:
+      - ANALYTICS_DISABLED=true
       - SERVER_NAME=navidrome
       - SERVER_LOCK=true
       - SERVER_TYPE=navidrome
