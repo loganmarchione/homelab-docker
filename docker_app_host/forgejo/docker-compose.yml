@@ -19,7 +19,7 @@ services:
       retries: 3
   forgejo:
     container_name: forgejo
-    image: codeberg.org/forgejo/forgejo:13.0.5-rootless@sha256:4472ab05ed70326bae67ff78c896e089f984a50d71cfd9bc525e6d589b1a5003
+    image: codeberg.org/forgejo/forgejo:14.0.1-rootless@sha256:7e34fc406137419569712ec3c7223ec3195f10cd25c15552571998a43f358eb6
     restart: unless-stopped
     environment:
       - TZ=America/New_York
