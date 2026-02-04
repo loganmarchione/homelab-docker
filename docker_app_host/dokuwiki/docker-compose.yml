@@ -1,7 +1,7 @@
 services:
   dokuwiki:
     container_name: dokuwiki
-    image: php:8.3-apache-bookworm@sha256:165bb9fa2aacd112e00805cb1e5847515df955f35ee9e2611bb51d9fec68575d
+    image: php:8.3-apache-bookworm@sha256:63bb080b756ec6afc59d5770f1efe8d2d3da534d259b33be0a37efa50d6deb71
     restart: unless-stopped
     environment:
       - TZ=America/New_York
