@@ -1,7 +1,7 @@
 services:
   postfixrelay:
     container_name: postfixrelay
-    image: loganmarchione/docker-postfixrelay:1.6.2@sha256:483d895ea1c471c36cc0a39d2065345b598b8e5a2dff5905ecf3bc93e2497c4c
+    image: loganmarchione/docker-postfixrelay:1.6.2@sha256:61465a16a125b234d535bb7496898b38d4bda9d74fd79ba775a4631c13960491
     restart: unless-stopped
     environment:
       - TZ=America/New_York
