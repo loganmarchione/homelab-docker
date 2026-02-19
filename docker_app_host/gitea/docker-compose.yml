@@ -20,7 +20,7 @@ services:
       - traefik.http.services.git.loadbalancer.server.port=3000
   gitea-runner:
     container_name: gitea-runner
-    image: gitea/act_runner:0.2.13@sha256:8477d5b61b655caad4449888bae39f1f34bebd27db56cb15a62dccb3dcf3a944
+    image: gitea/act_runner:0.3.0@sha256:8368754bb612a1deb07ed604e3b955338aefc01576d4d0d92e8dd82f29250fcd
     restart: unless-stopped
     environment:
       - TZ=America/New_York
