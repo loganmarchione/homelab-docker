@@ -48,7 +48,7 @@ services:
       start_period: 30s
   tubearchivist-elasticsearch:
     container_name: tubearchivist-elasticsearch
-    image: elasticsearch:8.18.8@sha256:e5b3511e96ee1c58e9027d9d06185be4e627074717b40f6145e860b39c851d6d
+    image: elasticsearch:8.19.12@sha256:7f68ead6c5415a1ca4b333c8e131c914a7201b8859a6d2b010205f07e82e714e
     restart: unless-stopped
     environment:
       - TZ=UTC
