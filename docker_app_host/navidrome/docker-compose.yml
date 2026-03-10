@@ -22,7 +22,7 @@ services:
       - traefik.http.services.navidrome.loadbalancer.server.port=4533
   feishin:
     container_name: feishin
-    image: ghcr.io/jeffvli/feishin:1.6.0@sha256:8232e3cdcf51c9d36b8756d26fd27f3436310c5f21701008256737499e52760e
+    image: ghcr.io/jeffvli/feishin:1.8.0@sha256:1f6145f5925b4c586ca1450a213a2ad70de416e8d4cd787c0bc4f0d974479c28
     restart: unless-stopped
     environment:
       - ANALYTICS_DISABLED=true
