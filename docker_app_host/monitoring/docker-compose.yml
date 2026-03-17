@@ -42,7 +42,7 @@ services:
       - traefik.http.services.prometheus.loadbalancer.server.port=9090
   telegraf-docker-host:
     container_name: monitoring-telegraf-docker-host
-    image: telegraf:1.37.3-alpine@sha256:a550e63a2efbea4b49596e475f0fcd3b057ff2ab0dfc8102357de289ee342a37
+    image: telegraf:1.38.1-alpine@sha256:81975f5fb882c7844990676ec63d5cd1cbcba92a5708b00a673aded7058037f8
     restart: unless-stopped
     environment:
       - TZ=UTC
@@ -58,7 +58,7 @@ services:
       - 'telegraf_docker_host:/etc/telegraf:ro'
   telegraf-whois:
     container_name: monitoring-telegraf-whois
-    image: telegraf:1.37.3-alpine@sha256:a550e63a2efbea4b49596e475f0fcd3b057ff2ab0dfc8102357de289ee342a37
+    image: telegraf:1.38.1-alpine@sha256:81975f5fb882c7844990676ec63d5cd1cbcba92a5708b00a673aded7058037f8
     restart: unless-stopped
     environment:
       - TZ=UTC
@@ -70,7 +70,7 @@ services:
       - 'telegraf_whois:/etc/telegraf:ro'
   telegraf-x509:
     container_name: monitoring-telegraf-x509
-    image: telegraf:1.37.3-alpine@sha256:a550e63a2efbea4b49596e475f0fcd3b057ff2ab0dfc8102357de289ee342a37
+    image: telegraf:1.38.1-alpine@sha256:81975f5fb882c7844990676ec63d5cd1cbcba92a5708b00a673aded7058037f8
     restart: unless-stopped
     environment:
       - TZ=UTC
