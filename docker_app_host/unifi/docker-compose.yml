@@ -1,7 +1,7 @@
 services:
   mongo:
     container_name: unifi-mongo
-    image: mongo:7.0.30@sha256:81ed620b45935fb49704010b75d3fa73df547f71323cfdba49323a64412253a4
+    image: mongo:7.0.30@sha256:da7bfd48ee2e48e6d0a60757f14eb26b0cb2929691ef9eded0f8cff0c77a8f9a
     restart: unless-stopped
     environment:
       - TZ=UTC
@@ -23,7 +23,7 @@ services:
       start_period: 30s
   unifi:
     container_name: unifi
-    image: lscr.io/linuxserver/unifi-network-application:10.1.85@sha256:d8f654c4a0fa9adc2959c56925cd76b01c0cbf28d6652c6b5df2c48c874a9749
+    image: lscr.io/linuxserver/unifi-network-application:10.1.85@sha256:05e8e7e5003263adc0e714c32ae5f9543279f324e54ff8750c4550924b25c79c
     restart: unless-stopped
     environment:
       - TZ=America/New_York
