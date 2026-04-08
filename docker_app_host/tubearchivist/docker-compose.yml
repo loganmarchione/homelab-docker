@@ -32,7 +32,7 @@ services:
       - traefik.http.services.tubearchivist.loadbalancer.server.port=8000
   tubearchivist-redis:
     container_name: tubearchivist-redis
-    image: redis:8.6.2@sha256:0a8c973565d4cbeca3174f0ec64b8b58d2fbe6c74d7fbc980474c1748f737d9c
+    image: redis:8.6.2@sha256:970b561d234882c50495c69ffae28f94b6ad8d526f91f9b4ccdd8031466e11a2
     restart: unless-stopped
     networks:
       - tubearchivist
@@ -48,7 +48,7 @@ services:
       start_period: 30s
   tubearchivist-elasticsearch:
     container_name: tubearchivist-elasticsearch
-    image: elasticsearch:8.19.13@sha256:dbcd3f1bdf627ffefa3a1f98e5cdfc85de4fe00e510f38f901fe49225e1515e9
+    image: elasticsearch:8.19.13@sha256:8b4e9c93353905721e37663f845756d6d7e57632357e865e66f0b70d6c9b3211
     restart: unless-stopped
     environment:
       - TZ=UTC
