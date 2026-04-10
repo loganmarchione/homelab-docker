@@ -1,7 +1,7 @@
 services:
   nextcloud:
     container_name: nextcloud
-    image: nextcloud:33.0.2-apache@sha256:61dd3e5816740f9f14aaba919566a6119b373e84eaa8b2b38779855b3ebc9c9f
+    image: nextcloud:33.0.2-apache@sha256:03cab7c1c96745fed1d8a6c64c7d851afaca6955cf9946beaedca4575b417eff
     restart: unless-stopped
     environment:
       - TZ=America/New_York
@@ -30,7 +30,7 @@ services:
       - traefik.http.middlewares.nextcloud_headers.headers.frameDeny=true
   nextcloud-redis:
     container_name: nextcloud-redis
-    image: redis:8.6.2@sha256:970b561d234882c50495c69ffae28f94b6ad8d526f91f9b4ccdd8031466e11a2
+    image: redis:8.6.2@sha256:1f073813b641755b70b0200da64131bbeeb4ec5b633ca67772229b49820caafa
     restart: unless-stopped
     networks:
       - nextcloud
@@ -46,7 +46,7 @@ services:
       start_period: 30s
   nextcloud-cron:
     container_name: nextcloud-cron
-    image: nextcloud:33.0.2-apache@sha256:61dd3e5816740f9f14aaba919566a6119b373e84eaa8b2b38779855b3ebc9c9f
+    image: nextcloud:33.0.2-apache@sha256:03cab7c1c96745fed1d8a6c64c7d851afaca6955cf9946beaedca4575b417eff
     restart: unless-stopped
     environment:
       - TZ=America/New_York
