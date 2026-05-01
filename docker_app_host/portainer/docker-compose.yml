@@ -1,7 +1,7 @@
 services:
   portainer:
     container_name: portainer
-    image: portainer/portainer-ce:2.40.0-alpine@sha256:bb1730d6411adc64328825897220e7711ad97f73e3c3638f8f2d71e9d2ddb2e7
+    image: portainer/portainer-ce:2.41.0-alpine@sha256:2421c752e9ca19bf2155e94e46c3ed83f03a3e601a473f88771c2d8a5b59ab48
     restart: unless-stopped
     environment:
       - TZ=America/New_York
