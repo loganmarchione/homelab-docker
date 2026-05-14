@@ -1,7 +1,7 @@
 services:
   traefik:
     container_name: traefik
-    image: traefik:v3.6.17@sha256:82cba729f671b28df5cad9e19326277efb852ddd0849df461676232d7de7ae48
+    image: traefik:v3.6.17@sha256:802adc80a7bb20a6766c9385c2ad547f0de98564cd20d31d0b6d8f726f906f66
     restart: unless-stopped
     environment:
       - TZ=America/New_York
