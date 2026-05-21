@@ -1,7 +1,7 @@
 services:
   nextcloud:
     container_name: nextcloud
-    image: nextcloud:33.0.3-apache@sha256:590fc813a9f14f2e3b496b8983f681f8dc1978672b1f9d73785ec97d9d00ef7f
+    image: nextcloud:33.0.3-apache@sha256:750e44fa0800b40274304841c970734cb249247cf6dab122aad51c644d905f32
     restart: unless-stopped
     environment:
       - TZ=America/New_York
@@ -46,7 +46,7 @@ services:
       start_period: 30s
   nextcloud-cron:
     container_name: nextcloud-cron
-    image: nextcloud:33.0.3-apache@sha256:590fc813a9f14f2e3b496b8983f681f8dc1978672b1f9d73785ec97d9d00ef7f
+    image: nextcloud:33.0.3-apache@sha256:750e44fa0800b40274304841c970734cb249247cf6dab122aad51c644d905f32
     restart: unless-stopped
     environment:
       - TZ=America/New_York
