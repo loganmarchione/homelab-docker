@@ -26,15 +26,6 @@
   ],
   "packageRules": [
     {
-      "matchPackageNames": [
-        "ghcr.io/jellyfin/jellyfin-vue"
-      ],
-      "versioning": "regex:^unstable\\.(?<major>\\d+)-(?<minor>\\d+)-(?<patch>\\d+)\\.(?<build>[^.]+)?$",
-      "automerge": true,
-      "automergeType": "pr",
-      "platformAutomerge": true
-    },
-    {
       "matchManagers": [
         "docker-compose"
       ],
