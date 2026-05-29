@@ -13,7 +13,6 @@ services:
           - audiobookshelf.${SECRET_INTERNAL_DOMAIN_NAME}
           - cyberchef.${SECRET_INTERNAL_DOMAIN_NAME}
           - drawio.${SECRET_INTERNAL_DOMAIN_NAME}
-          - drone.${SECRET_INTERNAL_DOMAIN_NAME}
           - forgejo.${SECRET_INTERNAL_DOMAIN_NAME}
           - git.${SECRET_INTERNAL_DOMAIN_NAME}
           - grafana.${SECRET_INTERNAL_DOMAIN_NAME}
