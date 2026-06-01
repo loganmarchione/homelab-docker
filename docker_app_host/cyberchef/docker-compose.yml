@@ -1,0 +1,24 @@
+services:
+  cyberchef:
+    container_name: cyberchef
+    image: ghcr.io/gchq/cyberchef:11.0.0@sha256:4cb08716816d9eb92fdf1c0f5aa158872e305e912d2e8074b3dbdb041d3fb34f
+    restart: unless-stopped
+    environment:
+      - TZ=America/New_York
+    networks:
+      - proxy
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.cyberchef.rule=Host(`cyberchef.${SECRET_INTERNAL_DOMAIN_NAME}`)
+      - traefik.http.routers.cyberchef.tls=true
+      - traefik.http.routers.cyberchef.tls.certresolver=cloudflare
+      - traefik.http.routers.cyberchef.entrypoints=websecure
+      - traefik.http.services.cyberchef.loadbalancer.server.port=8080
+    security_opt:
+      - no-new-privileges=true
+    cap_drop:
+      - ALL
+
+networks:
+  proxy:
+    external: true

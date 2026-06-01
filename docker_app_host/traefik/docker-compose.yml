@@ -11,7 +11,8 @@ services:
       proxy:
         aliases:  # These are needed to be able to ping between hosts in separate containers
           - audiobookshelf.${SECRET_INTERNAL_DOMAIN_NAME}
-          - drone.${SECRET_INTERNAL_DOMAIN_NAME}
+          - cyberchef.${SECRET_INTERNAL_DOMAIN_NAME}
+          - drawio.${SECRET_INTERNAL_DOMAIN_NAME}
           - forgejo.${SECRET_INTERNAL_DOMAIN_NAME}
           - git.${SECRET_INTERNAL_DOMAIN_NAME}
           - grafana.${SECRET_INTERNAL_DOMAIN_NAME}
@@ -25,6 +26,7 @@ services:
           - portainer.${SECRET_INTERNAL_DOMAIN_NAME}
           - prometheus.${SECRET_INTERNAL_DOMAIN_NAME}
           - recipes.${SECRET_INTERNAL_DOMAIN_NAME}
+          - spdf.${SECRET_INTERNAL_DOMAIN_NAME}
           - startpage.${SECRET_INTERNAL_DOMAIN_NAME}
           - tubearchivist.${SECRET_INTERNAL_DOMAIN_NAME}
           - traefik.${SECRET_INTERNAL_DOMAIN_NAME}

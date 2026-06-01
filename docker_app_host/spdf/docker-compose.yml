@@ -1,0 +1,32 @@
+services:
+  spdf:
+    container_name: spdf
+    image: ghcr.io/stirling-tools/s-pdf:2.11.0@sha256:b75b5ae2fcb75948f468718ed4c0bd499a8cafc9daf7f90f4c1e0e5a6acf9df8
+    restart: unless-stopped
+    environment:
+      - TZ=America/New_York
+      - SYSTEM_ENABLEANALYTICS=false
+      - SECURITY_ENABLELOGIN=false
+    networks:
+      - proxy
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.spdf.rule=Host(`spdf.${SECRET_INTERNAL_DOMAIN_NAME}`)
+      - traefik.http.routers.spdf.tls=true
+      - traefik.http.routers.spdf.tls.certresolver=cloudflare
+      - traefik.http.routers.spdf.entrypoints=websecure
+      - traefik.http.services.spdf.loadbalancer.server.port=8080
+    security_opt:
+      - no-new-privileges=true
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - FOWNER
+      - SETGID
+      - SETUID
+
+networks:
+  proxy:
+    external: true

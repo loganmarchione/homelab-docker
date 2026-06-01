@@ -1,0 +1,25 @@
+services:
+  drawio:
+    container_name: drawio
+    image: jgraph/drawio:30.0.4@sha256:3fbc301ab4cbb5ae02d47a5586b95ee287cb90c6b6385876fa44947ed99548b9
+    restart: unless-stopped
+    environment:
+      - TZ=America/New_York
+      - DRAWIO_BASE_URL=https://drawio.${SECRET_INTERNAL_DOMAIN_NAME}
+    networks:
+      - proxy
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.drawio.rule=Host(`drawio.${SECRET_INTERNAL_DOMAIN_NAME}`)
+      - traefik.http.routers.drawio.tls=true
+      - traefik.http.routers.drawio.tls.certresolver=cloudflare
+      - traefik.http.routers.drawio.entrypoints=websecure
+      - traefik.http.services.drawio.loadbalancer.server.port=8080
+    security_opt:
+      - no-new-privileges=true
+    cap_drop:
+      - ALL
+
+networks:
+  proxy:
+    external: true
