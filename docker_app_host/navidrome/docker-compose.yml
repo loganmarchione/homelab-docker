@@ -19,6 +19,10 @@ services:
       - traefik.http.routers.navidrome.tls.certresolver=cloudflare
       - traefik.http.routers.navidrome.entrypoints=websecure
       - traefik.http.services.navidrome.loadbalancer.server.port=4533
+    security_opt:
+      - no-new-privileges=true
+    cap_drop:
+      - ALL
 
 networks:
   proxy:

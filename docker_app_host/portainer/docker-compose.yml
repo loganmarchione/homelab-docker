@@ -18,6 +18,10 @@ services:
       - traefik.http.routers.portainer.entrypoints=websecure
       - traefik.http.services.portainer.loadbalancer.server.scheme=https
       - traefik.http.services.portainer.loadbalancer.server.port=9443
+    security_opt:
+      - no-new-privileges=true
+    cap_drop:
+      - ALL
 
 networks:
   proxy:

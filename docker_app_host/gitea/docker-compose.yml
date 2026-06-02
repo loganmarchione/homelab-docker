@@ -18,6 +18,15 @@ services:
       - traefik.http.routers.git.tls.certresolver=cloudflare
       - traefik.http.routers.git.entrypoints=websecure
       - traefik.http.services.git.loadbalancer.server.port=3000
+    security_opt:
+      - no-new-privileges=true
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - SETGID
+      - SETUID
   gitea-runner:
     container_name: gitea-runner
     image: gitea/act_runner:0.6.1@sha256:b5c35d6bdbb9bb25e531230bfc7cc663cb751406cbec90a2a891b85fea54de86
@@ -37,6 +46,10 @@ services:
       - '/var/run/docker.sock:/var/run/docker.sock'
       - 'gitea_runner_data:/data'
       - 'gitea_runner_config:/gitea_runner_config'
+    security_opt:
+      - no-new-privileges=true
+    cap_drop:
+      - ALL
 
 networks:
   proxy:

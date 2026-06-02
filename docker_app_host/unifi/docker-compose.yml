@@ -21,6 +21,15 @@ services:
       timeout: 10s
       retries: 3
       start_period: 30s
+    security_opt:
+      - no-new-privileges=true
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - SETGID
+      - SETUID
   unifi:
     container_name: unifi
     image: lscr.io/linuxserver/unifi-network-application:10.3.58@sha256:71d3c32763e6a00d2e1924a7c42fa13e0b9e199ca4d2f7d660bdd514aeff5ef7
@@ -47,6 +56,16 @@ services:
       - traefik.http.routers.unifi.entrypoints=websecure
       - traefik.http.services.unifi.loadbalancer.server.scheme=https
       - traefik.http.services.unifi.loadbalancer.server.port=8443
+    security_opt:
+      - no-new-privileges=true
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - SETGID
+      - SETUID
+      - SETPCAP
 
 networks:
   unifi:

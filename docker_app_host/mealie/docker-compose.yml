@@ -18,6 +18,15 @@ services:
       - traefik.http.routers.mealie.tls.certresolver=cloudflare
       - traefik.http.routers.mealie.entrypoints=websecure
       - traefik.http.services.mealie.loadbalancer.server.port=9000
+    security_opt:
+      - no-new-privileges=true
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - SETGID
+      - SETUID
 
 networks:
   proxy:

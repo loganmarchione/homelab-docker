@@ -18,6 +18,10 @@ services:
       - traefik.http.routers.planka.tls.certresolver=cloudflare
       - traefik.http.routers.planka.entrypoints=websecure
       - traefik.http.services.planka.loadbalancer.server.port=1337
+    security_opt:
+      - no-new-privileges=true
+    cap_drop:
+      - ALL
 
 networks:
   proxy:
