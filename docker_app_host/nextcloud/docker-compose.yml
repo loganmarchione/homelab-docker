@@ -28,6 +28,15 @@ services:
       - traefik.http.middlewares.nextcloud_headers.headers.stsSeconds=63072000
       - traefik.http.middlewares.nextcloud_headers.headers.customFrameOptionsValue=SAMEORIGIN
       - traefik.http.middlewares.nextcloud_headers.headers.frameDeny=true
+    security_opt:
+      - no-new-privileges=true
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - SETGID
+      - SETUID
   nextcloud-redis:
     container_name: nextcloud-redis
     image: redis:8.8.0@sha256:aa049e689e141a4358ad1d4562dc49c88a89fbab711fd8fcc33f684c80b26301
@@ -44,6 +53,16 @@ services:
       timeout: 3s
       retries: 3
       start_period: 30s
+    security_opt:
+      - no-new-privileges=true
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - SETGID
+      - SETUID
+      - SETPCAP
   nextcloud-cron:
     container_name: nextcloud-cron
     image: nextcloud:33.0.4-apache@sha256:caa40b8beaf0057ac213d8dfc515c36ce64f7a8f0825b6a287e6f7cf2f4a095d
@@ -60,6 +79,10 @@ services:
       - nextcloud
       - nextcloud-redis
     entrypoint: /cron.sh
+    security_opt:
+      - no-new-privileges=true
+    cap_drop:
+      - ALL
 
 networks:
   nextcloud:

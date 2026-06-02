@@ -16,6 +16,15 @@ services:
       - traefik.http.routers.webdav.tls.certresolver=cloudflare
       - traefik.http.routers.webdav.entrypoints=websecure
       - traefik.http.services.webdav.loadbalancer.server.port=80
+    security_opt:
+      - no-new-privileges=true
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - SETGID
+      - SETUID
 
 networks:
   proxy:

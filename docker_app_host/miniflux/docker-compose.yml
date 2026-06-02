@@ -16,6 +16,10 @@ services:
       - traefik.http.routers.miniflux.tls.certresolver=cloudflare
       - traefik.http.routers.miniflux.entrypoints=websecure
       - traefik.http.services.miniflux.loadbalancer.server.port=8080
+    security_opt:
+      - no-new-privileges=true
+    cap_drop:
+      - ALL
 
 networks:
   proxy:

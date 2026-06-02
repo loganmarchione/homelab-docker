@@ -20,6 +20,15 @@ services:
       timeout: 10s
       retries: 3
       start_period: 30s
+    security_opt:
+      - no-new-privileges=true
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - SETGID
+      - SETUID
   opensearch:
     container_name: graylog-opensearch
     image: opensearchproject/opensearch:2.19.5@sha256:e225ca1a828ef054e0335a0c234198a7b8f80abcc90f1159273ca7be5d8bbdff
@@ -45,6 +54,10 @@ services:
       timeout: 10s
       retries: 3
       start_period: 30s
+    security_opt:
+      - no-new-privileges=true
+    cap_drop:
+      - ALL
   graylog:
     container_name: graylog
     image: graylog/graylog:7.1.2@sha256:ebabef2b295af9ced3ae67214b00730455da7151c0c4f646e2f962a9fd126045
@@ -73,6 +86,16 @@ services:
       - traefik.http.routers.graylogweb.tls.certresolver=cloudflare
       - traefik.http.routers.graylogweb.entrypoints=websecure
       - traefik.http.services.graylogweb.loadbalancer.server.port=9000
+    security_opt:
+      - no-new-privileges=true
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - NET_BIND_SERVICE
+      - SETGID
+      - SETUID
   geoipupdate:
     container_name: graylog-geoipupdate
     image: ghcr.io/maxmind/geoipupdate:v7.1.1@sha256:faecdca22579730ab0b7dea5aa9af350bb3c93cb9d39845c173639ead30346d2
@@ -87,6 +110,10 @@ services:
       - graylog
     volumes:
       - 'geoipupdate_data:/usr/share/GeoIP'
+    security_opt:
+      - no-new-privileges=true
+    cap_drop:
+      - ALL
 
 networks:
   graylog_mongo:

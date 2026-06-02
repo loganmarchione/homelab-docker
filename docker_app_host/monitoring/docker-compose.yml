@@ -21,6 +21,10 @@ services:
       timeout: 10s
       retries: 3
       start_period: 30s
+    security_opt:
+      - no-new-privileges=true
+    cap_drop:
+      - ALL
   prometheus-server:
     container_name: monitoring-prometheus-server
     image: prom/prometheus:v3.12.0@sha256:69f5241418838263316593f7274a304b095c40bcf22e57272865da91bd60a8ac
@@ -40,6 +44,10 @@ services:
       - traefik.http.routers.prometheus.tls.certresolver=cloudflare
       - traefik.http.routers.prometheus.entrypoints=websecure
       - traefik.http.services.prometheus.loadbalancer.server.port=9090
+    security_opt:
+      - no-new-privileges=true
+    cap_drop:
+      - ALL
   telegraf-docker-host:
     container_name: monitoring-telegraf-docker-host
     image: telegraf:1.38.4-alpine@sha256:49fc4b3e60115966979d653e76874bd960acdd27cd484a4a57813132e474d882
@@ -56,6 +64,15 @@ services:
       - '/var/run/docker.sock:/var/run/docker.sock:ro'
       - '/proc:/host/proc:ro'
       - 'telegraf_docker_host:/etc/telegraf:ro'
+    security_opt:
+      - no-new-privileges=true
+    cap_drop:
+      - ALL
+    cap_add:
+      - SETFCAP
+      - SETPCAP
+      - SETGID
+      - SETUID
   telegraf-whois:
     container_name: monitoring-telegraf-whois
     image: telegraf:1.38.4-alpine@sha256:49fc4b3e60115966979d653e76874bd960acdd27cd484a4a57813132e474d882
@@ -68,6 +85,17 @@ services:
       - influxdb
     volumes:
       - 'telegraf_whois:/etc/telegraf:ro'
+    security_opt:
+      - no-new-privileges=true
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_BIND_SERVICE
+      - NET_RAW
+      - SETFCAP
+      - SETPCAP
+      - SETGID
+      - SETUID
   telegraf-x509:
     container_name: monitoring-telegraf-x509
     image: telegraf:1.38.4-alpine@sha256:49fc4b3e60115966979d653e76874bd960acdd27cd484a4a57813132e474d882
@@ -80,6 +108,17 @@ services:
       - influxdb
     volumes:
       - 'telegraf_x509:/etc/telegraf:ro'
+    security_opt:
+      - no-new-privileges=true
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_BIND_SERVICE
+      - NET_RAW
+      - SETFCAP
+      - SETPCAP
+      - SETGID
+      - SETUID
   grafana:
     container_name: monitoring-grafana
     image: grafana/grafana-oss:13.0.1@sha256:0f86bada30d65ef9d0183b90c1e2682ac92d53d95da8bed322b984ea78a4a73a
@@ -102,6 +141,10 @@ services:
       - traefik.http.routers.grafana.tls.certresolver=cloudflare
       - traefik.http.routers.grafana.entrypoints=websecure
       - traefik.http.services.grafana.loadbalancer.server.port=3000
+    security_opt:
+      - no-new-privileges=true
+    cap_drop:
+      - ALL
 
 networks:
   monitoring:

@@ -17,6 +17,15 @@ services:
       interval: 10s
       timeout: 5s
       retries: 3
+    security_opt:
+      - no-new-privileges=true
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - SETGID
+      - SETUID
   forgejo:
     container_name: forgejo
     image: codeberg.org/forgejo/forgejo:15.0.2-rootless@sha256:cc2d74fb4c30385a8ee34de8c8f83344f7316cec70bd2cc7eb82b2802fa28e0b
@@ -40,6 +49,10 @@ services:
       - traefik.http.routers.forgejo.tls.certresolver=cloudflare
       - traefik.http.routers.forgejo.entrypoints=websecure
       - traefik.http.services.forgejo.loadbalancer.server.port=3000
+    security_opt:
+      - no-new-privileges=true
+    cap_drop:
+      - ALL
 
 networks:
   forgejo:

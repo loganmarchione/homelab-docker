@@ -30,6 +30,15 @@ services:
       - traefik.http.routers.tubearchivist.tls.certresolver=cloudflare
       - traefik.http.routers.tubearchivist.entrypoints=websecure
       - traefik.http.services.tubearchivist.loadbalancer.server.port=8000
+    security_opt:
+      - no-new-privileges=true
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - SETGID
+      - SETUID
   tubearchivist-redis:
     container_name: tubearchivist-redis
     image: redis:8.8.0@sha256:aa049e689e141a4358ad1d4562dc49c88a89fbab711fd8fcc33f684c80b26301
@@ -46,6 +55,16 @@ services:
       timeout: 3s
       retries: 3
       start_period: 30s
+    security_opt:
+      - no-new-privileges=true
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - SETGID
+      - SETUID
+      - SETPCAP
   tubearchivist-elasticsearch:
     container_name: tubearchivist-elasticsearch
     image: elasticsearch:8.19.16@sha256:832cb4df76ba2a08f0051742d216a67e3e3a7d8a616082793ed0150a95d3c9fe
@@ -68,6 +87,10 @@ services:
       timeout: 10s
       retries: 3
       start_period: 30s
+    security_opt:
+      - no-new-privileges=true
+    cap_drop:
+      - ALL
 
 networks:
   tubearchivist:

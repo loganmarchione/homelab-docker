@@ -14,6 +14,13 @@ services:
       - traefik.http.routers.startpage.tls.certresolver=cloudflare
       - traefik.http.routers.startpage.entrypoints=websecure
       - traefik.http.services.startpage.loadbalancer.server.port=80
+    security_opt:
+      - no-new-privileges=true
+    cap_drop:
+      - ALL
+    cap_add:
+      - SETGID
+      - SETUID
 
 networks:
   proxy:

@@ -18,6 +18,10 @@ services:
       - traefik.http.routers.kiwix.tls.certresolver=cloudflare
       - traefik.http.routers.kiwix.entrypoints=websecure
       - traefik.http.services.kiwix.loadbalancer.server.port=8080
+    security_opt:
+      - no-new-privileges=true
+    cap_drop:
+      - ALL
 
 networks:
   proxy:
