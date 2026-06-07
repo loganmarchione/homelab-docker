@@ -1,7 +1,7 @@
 services:
   startpage:
     container_name: startpage
-    image: loganmarchione/docker-php-startpage:0.9.16@sha256:4a4bf4416624e722aed59557932e643d2d37d8312403edf8f167175a7ff42a77
+    image: loganmarchione/docker-php-startpage:0.9.16@sha256:9cc5552e4d5cf51e8e77b2ffcbbf69a3b5a4b282d34864b074637a4720dcf156
     restart: unless-stopped
     networks:
       - proxy
