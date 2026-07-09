@@ -60,7 +60,7 @@ services:
       - ALL
   graylog:
     container_name: graylog
-    image: graylog/graylog:7.1.4@sha256:70552df2d862a1c806ad53de1f4438c2250647caf8e23dcea60301784bbc9786
+    image: graylog/graylog:7.1.5@sha256:91585f117c5599657211f0490b0412f6c50a5b0a5a54f3061b9ddc26e310956a
     restart: unless-stopped
     environment:
       - TZ=UTC
