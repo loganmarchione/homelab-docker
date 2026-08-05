@@ -41,7 +41,7 @@ services:
       - SETUID
   tubearchivist-redis:
     container_name: tubearchivist-redis
-    image: redis:8.10.0@sha256:a7efd4ed5037dcfe1543c0e50b9f06293d3e88827005544bf37f381eea5f01cf
+    image: redis:8.10.0@sha256:c8deb6d5d6d30f67aa6d18075b2336f65d783a80415381500bfc7a5ea8266070
     restart: unless-stopped
     networks:
       - tubearchivist
@@ -67,7 +67,7 @@ services:
       - SETPCAP
   tubearchivist-elasticsearch:
     container_name: tubearchivist-elasticsearch
-    image: elasticsearch:8.19.19@sha256:7901ce73287993e0a774e9d9b75f265c1af4cda895d47a28cbdd07e965fe5574
+    image: elasticsearch:8.19.19@sha256:2062cb98a4dd1b90ec588cffe88b831e9e3a4054c2632553ebddf20171cf5203
     restart: unless-stopped
     environment:
       - TZ=UTC
