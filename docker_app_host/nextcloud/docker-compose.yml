@@ -1,7 +1,7 @@
 services:
   nextcloud:
     container_name: nextcloud
-    image: nextcloud:34.0.4-apache@sha256:8418c398d767f857eb571101e6b64b7d4b67d6b9c41611808e9c3ef9acbcc3f1
+    image: nextcloud:34.0.4-apache@sha256:b13a87affb7e11e4c99ad56f885bc44f9c7564af089f55aea9e0d7cf789fa84d
     restart: unless-stopped
     environment:
       - TZ=America/New_York
@@ -68,7 +68,7 @@ services:
       - SETPCAP
   nextcloud-cron:
     container_name: nextcloud-cron
-    image: nextcloud:34.0.4-apache@sha256:8418c398d767f857eb571101e6b64b7d4b67d6b9c41611808e9c3ef9acbcc3f1
+    image: nextcloud:34.0.4-apache@sha256:b13a87affb7e11e4c99ad56f885bc44f9c7564af089f55aea9e0d7cf789fa84d
     restart: unless-stopped
     environment:
       - TZ=America/New_York
