@@ -1,7 +1,7 @@
 services:
   nextcloud:
     container_name: nextcloud
-    image: nextcloud:34.0.4-apache@sha256:fe4e1161cb971c66dbac9fb1a301a0ef6c7825e190eadefaa97e5f11d2f8b150
+    image: nextcloud:34.0.4-apache@sha256:647bd583d6af516d1c013e3a1e347969def5903a3efd2073312ff97492cad4b8
     restart: unless-stopped
     environment:
       - TZ=America/New_York
@@ -42,7 +42,7 @@ services:
       - SETUID
   nextcloud-redis:
     container_name: nextcloud-redis
-    image: redis:8.10.1@sha256:602d361c4da947cea77ea03b4f721ef85345c8457b70a80b0027974cacf68ece
+    image: redis:8.10.1@sha256:8a1efc5f479551822b47424ccae982026b633f28818eab0387348120a61e10e2
     restart: unless-stopped
     networks:
       - nextcloud
@@ -68,7 +68,7 @@ services:
       - SETPCAP
   nextcloud-cron:
     container_name: nextcloud-cron
-    image: nextcloud:34.0.4-apache@sha256:fe4e1161cb971c66dbac9fb1a301a0ef6c7825e190eadefaa97e5f11d2f8b150
+    image: nextcloud:34.0.4-apache@sha256:647bd583d6af516d1c013e3a1e347969def5903a3efd2073312ff97492cad4b8
     restart: unless-stopped
     environment:
       - TZ=America/New_York
