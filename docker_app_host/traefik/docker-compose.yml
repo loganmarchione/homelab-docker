@@ -33,7 +33,6 @@ services:
           - webdav.${SECRET_INTERNAL_DOMAIN_NAME}
           - whoami.${SECRET_INTERNAL_DOMAIN_NAME}
           - wiki.${SECRET_INTERNAL_DOMAIN_NAME}
-          - unifi.${SECRET_INTERNAL_DOMAIN_NAME}
     ports:
       - '443:443/tcp'
     volumes:
