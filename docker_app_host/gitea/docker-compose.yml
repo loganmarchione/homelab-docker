@@ -29,7 +29,7 @@ services:
       - SETUID
   gitea-runner:
     container_name: gitea-runner
-    image: gitea/runner:4.0.1@sha256:c2ff86dfc5dc036eab2283556d0f3933c1a222319feae63d100c1ba89da1233c
+    image: gitea/runner:4.1.0@sha256:131ff842ec12453108f1c1a454031c325d3c95e4af459979a2e303e12d99c98c
     restart: unless-stopped
     environment:
       - TZ=America/New_York
