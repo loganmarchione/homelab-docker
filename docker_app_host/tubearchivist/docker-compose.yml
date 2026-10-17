@@ -67,7 +67,7 @@ services:
       - SETPCAP
   tubearchivist-elasticsearch:
     container_name: tubearchivist-elasticsearch
-    image: elasticsearch:8.19.23@sha256:8b1751877c984f3e4f59bafb15fc890e01969a744255fd5f6860c060b62cff36
+    image: elasticsearch:8.19.23@sha256:fbae689bbd9a5509ded087af417533952c345d6fc5b240971caad3b6b08818e0
     restart: unless-stopped
     environment:
       - TZ=UTC
