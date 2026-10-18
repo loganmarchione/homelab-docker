@@ -44,6 +44,7 @@ services:
     container_name: nextcloud-redis
     image: redis:8.10.2@sha256:2c2dff791878316e3b083188be0d578423b24813cdda5de0e80ea4f7b3e6bfd6
     restart: unless-stopped
+    stop_grace_period: 60s
     networks:
       - nextcloud
     depends_on:
