@@ -76,11 +76,11 @@ services:
       - /custom/files/nextcloud.env
     networks:
       - nextcloud
-    volumes:
-      - 'nextcloud_data:/var/www/html'
     depends_on:
       - nextcloud
       - nextcloud-redis
+    volumes:
+      - 'nextcloud_data:/var/www/html'
     entrypoint: /cron.sh
     security_opt:
       - no-new-privileges=true
