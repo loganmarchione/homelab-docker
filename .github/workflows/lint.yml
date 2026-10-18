@@ -51,3 +51,18 @@ jobs:
       - name: Run yamllint
         run: |
           yamllint .
+
+  dclint:
+    name: dclint
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the codebase
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - name: Lint the compose files
+        uses: docker-compose-linter/dclint-github-action@18659f6a7956706cb67cf9c1ad5e55f4352cbc17 # v1.6.0
+        with:
+          path: ./docker_app_host/
+          recursive: true

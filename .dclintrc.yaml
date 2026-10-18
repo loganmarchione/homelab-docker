@@ -1,0 +1,45 @@
+---
+rules:
+  service-keys-order:
+    - 2
+    - groupOrder:
+        - Custom
+      groups:
+        Custom:
+          - container_name
+          - image
+          - restart
+          - environment
+          - env_file
+          - user
+          - group_add
+          - ulimits
+          - networks
+          - expose
+          - ports
+          - depends_on
+          - volumes
+          - devices
+          - entrypoint
+          - command
+          - healthcheck
+          - labels
+          - security_opt
+          - cap_drop
+          - cap_add
+
+  # Only enforce key order; all other rules are off
+  no-build-and-image: 0
+  no-duplicate-container-names: 0
+  no-duplicate-exported-ports: 0
+  no-quotes-in-volumes: 0
+  no-unbound-port-interfaces: 0
+  no-version-field: 0
+  require-project-name-field: 0
+  require-quotes-in-ports: 0
+  service-container-name-regex: 0
+  service-dependencies-alphabetical-order: 0
+  service-image-require-explicit-tag: 0
+  service-ports-alphabetical-order: 0
+  services-alphabetical-order: 0
+  top-level-properties-order: 0

@@ -2,8 +2,6 @@ services:
   kiwix:
     container_name: kiwix
     image: ghcr.io/kiwix/kiwix-serve:3.8.2@sha256:e478554a9920412eeb5ce1d73f24e4b28445ebed233187cdd03c623c32be46a5
-    command:
-      - '*.zim'
     restart: unless-stopped
     environment:
       - TZ=America/New_York
@@ -11,6 +9,8 @@ services:
       - proxy
     volumes:
       - '/custom_mounts/media_nc/library/Kiwix:/data:ro'
+    command:
+      - '*.zim'
     labels:
       - traefik.enable=true
       - traefik.http.routers.kiwix.rule=Host(`kiwix.${SECRET_INTERNAL_DOMAIN_NAME}`)
