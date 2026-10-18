@@ -37,6 +37,12 @@ services:
     volumes:
       - 'prometheus_config:/etc/prometheus'
       - 'prometheus_data:/prometheus'
+    healthcheck:
+      test: ["CMD", "promtool", "check", "ready"]
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
     labels:
       - traefik.enable=true
       - traefik.http.routers.prometheus.rule=Host(`prometheus.${SECRET_INTERNAL_DOMAIN_NAME}`)
