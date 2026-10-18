@@ -9,6 +9,7 @@ rules:
           - container_name
           - image
           - restart
+          - stop_grace_period
           - environment
           - env_file
           - user

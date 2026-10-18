@@ -43,6 +43,7 @@ services:
     container_name: tubearchivist-redis
     image: redis:8.10.2@sha256:2c2dff791878316e3b083188be0d578423b24813cdda5de0e80ea4f7b3e6bfd6
     restart: unless-stopped
+    stop_grace_period: 60s
     networks:
       - tubearchivist
     depends_on:
@@ -69,6 +70,7 @@ services:
     container_name: tubearchivist-elasticsearch
     image: elasticsearch:8.19.23@sha256:3f4d63c59ca5a05b535179dfcced47a514119e351fa81653f69902beacae90c9
     restart: unless-stopped
+    stop_grace_period: 60s
     environment:
       - TZ=UTC
     env_file:

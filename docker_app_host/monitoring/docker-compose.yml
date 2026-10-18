@@ -3,6 +3,7 @@ services:
     container_name: monitoring-influxdb
     image: influxdb:1.13.1@sha256:1126a8335b2dd106c5360b9f493c365d9b548100ad68791b4b421dc9f408f8d3
     restart: unless-stopped
+    stop_grace_period: 60s
     environment:
       - TZ=UTC
       - INFLUXDB_HTTP_AUTH_ENABLED=true
@@ -29,6 +30,7 @@ services:
     container_name: monitoring-prometheus-server
     image: prom/prometheus:v3.15.0@sha256:efd719c99d83b060d9daefdcf00360461adf279f45ef5391f8d111892118753e
     restart: unless-stopped
+    stop_grace_period: 60s
     environment:
       - TZ=UTC
     networks:
@@ -37,6 +39,12 @@ services:
     volumes:
       - 'prometheus_config:/etc/prometheus'
       - 'prometheus_data:/prometheus'
+    healthcheck:
+      test: ["CMD", "promtool", "check", "ready"]
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
     labels:
       - traefik.enable=true
       - traefik.http.routers.prometheus.rule=Host(`prometheus.${SECRET_INTERNAL_DOMAIN_NAME}`)
