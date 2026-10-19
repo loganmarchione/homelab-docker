@@ -22,6 +22,7 @@ services:
           - miniflux.${SECRET_INTERNAL_DOMAIN_NAME}
           - navidrome.${SECRET_INTERNAL_DOMAIN_NAME}
           - nextcloud.${SECRET_INTERNAL_DOMAIN_NAME}
+          - opencloud.${SECRET_INTERNAL_DOMAIN_NAME}
           - planka.${SECRET_INTERNAL_DOMAIN_NAME}
           - portainer.${SECRET_INTERNAL_DOMAIN_NAME}
           - prometheus.${SECRET_INTERNAL_DOMAIN_NAME}
