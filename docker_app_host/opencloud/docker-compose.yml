@@ -1,0 +1,47 @@
+services:
+  opencloud:
+    container_name: opencloud
+    image: opencloudeu/opencloud:7.2.4@sha256:6d992ccc5f1cbc7b2a9b272ba25f879b1b159c2d7ed7f5527e09059f16295697
+    restart: unless-stopped
+    stop_grace_period: 30s
+    environment:
+      - TZ=America/New_York
+      - OC_URL=https://opencloud.${SECRET_INTERNAL_DOMAIN_NAME}
+    env_file:
+      - /custom/files/opencloud.env
+    user: '5001:5001'
+    networks:
+      - proxy
+    volumes:
+      - 'opencloud_config:/etc/opencloud'
+      - 'opencloud_data:/var/lib/opencloud'
+    # "init" writes /etc/opencloud/opencloud.yaml with random secrets on first run,
+    # then fails harmlessly on every later run because the file already exists
+    entrypoint:
+      - /bin/sh
+    command: ["-c", "opencloud init || true; opencloud server"]
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.opencloud.rule=Host(`opencloud.${SECRET_INTERNAL_DOMAIN_NAME}`)
+      - traefik.http.routers.opencloud.tls=true
+      - traefik.http.routers.opencloud.tls.certresolver=cloudflare
+      - traefik.http.routers.opencloud.entrypoints=websecure
+      - traefik.http.services.opencloud.loadbalancer.server.port=9200
+      - traefik.http.routers.opencloud.middlewares=opencloud_headers
+      - traefik.http.middlewares.opencloud_headers.headers.stsIncludeSubdomains=true
+      - traefik.http.middlewares.opencloud_headers.headers.stsPreload=true
+      - traefik.http.middlewares.opencloud_headers.headers.stsSeconds=31536000
+    security_opt:
+      - no-new-privileges=true
+    cap_drop:
+      - ALL
+
+networks:
+  proxy:
+    external: true
+
+volumes:
+  opencloud_config:
+    driver: local
+  opencloud_data:
+    driver: local
