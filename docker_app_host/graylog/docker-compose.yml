@@ -32,7 +32,7 @@ services:
       - SETUID
   opensearch:
     container_name: graylog-opensearch
-    image: opensearchproject/opensearch:2.19.7@sha256:1f81bb6a552637d6f551baeb8d8fad5ed969a0577374e76af14d1131ab750cd9
+    image: opensearchproject/opensearch:3.9.0@sha256:adfa61f85025d06b4aeb562e7e74fde7e31c437039c93c3862c17e9acebd6c7c
     restart: unless-stopped
     stop_grace_period: 60s
     environment:
