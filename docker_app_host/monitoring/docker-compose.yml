@@ -58,7 +58,7 @@ services:
       - ALL
   telegraf-docker-host:
     container_name: monitoring-telegraf-docker-host
-    image: telegraf:1.40.2-alpine@sha256:d3b22c2bd211fd613e4a87b0ca0f74f20b9a7f2b1be3c6e867e98a6d4a51545e
+    image: telegraf:1.40.2-alpine@sha256:4a62bd294bf2f4c1e3781194fe7b625b7e527244eeb31afd5758227914a16229
     restart: unless-stopped
     environment:
       - TZ=UTC
@@ -83,7 +83,7 @@ services:
       - SETUID
   telegraf-whois:
     container_name: monitoring-telegraf-whois
-    image: telegraf:1.40.2-alpine@sha256:d3b22c2bd211fd613e4a87b0ca0f74f20b9a7f2b1be3c6e867e98a6d4a51545e
+    image: telegraf:1.40.2-alpine@sha256:4a62bd294bf2f4c1e3781194fe7b625b7e527244eeb31afd5758227914a16229
     restart: unless-stopped
     environment:
       - TZ=UTC
@@ -106,7 +106,7 @@ services:
       - SETUID
   telegraf-x509:
     container_name: monitoring-telegraf-x509
-    image: telegraf:1.40.2-alpine@sha256:d3b22c2bd211fd613e4a87b0ca0f74f20b9a7f2b1be3c6e867e98a6d4a51545e
+    image: telegraf:1.40.2-alpine@sha256:4a62bd294bf2f4c1e3781194fe7b625b7e527244eeb31afd5758227914a16229
     restart: unless-stopped
     environment:
       - TZ=UTC
