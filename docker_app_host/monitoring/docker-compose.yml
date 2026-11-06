@@ -1,7 +1,7 @@
 services:
   influxdb:
     container_name: monitoring-influxdb
-    image: influxdb:1.13.2@sha256:b33525b2fa01ee40ad93e318f299e76286a3de2271333c441b4a224c1ac42194
+    image: influxdb:1.13.2@sha256:ffa96366d916545608b8ae8dcc09d1efb5d792e4139096dfdcb1daf8789b211a
     restart: unless-stopped
     stop_grace_period: 60s
     environment:
@@ -58,7 +58,7 @@ services:
       - ALL
   telegraf-docker-host:
     container_name: monitoring-telegraf-docker-host
-    image: telegraf:1.40.3-alpine@sha256:6d20820eeb3cfdbbd33b9040fded5898ed15f552836362836d9a8f00884ac1ea
+    image: telegraf:1.40.3-alpine@sha256:10fe8c974752c8088858f012cb47b71f5bb67c5695829be56d87dfbf8e0092b8
     restart: unless-stopped
     environment:
       - TZ=UTC
@@ -83,7 +83,7 @@ services:
       - SETUID
   telegraf-whois:
     container_name: monitoring-telegraf-whois
-    image: telegraf:1.40.3-alpine@sha256:6d20820eeb3cfdbbd33b9040fded5898ed15f552836362836d9a8f00884ac1ea
+    image: telegraf:1.40.3-alpine@sha256:10fe8c974752c8088858f012cb47b71f5bb67c5695829be56d87dfbf8e0092b8
     restart: unless-stopped
     environment:
       - TZ=UTC
@@ -106,7 +106,7 @@ services:
       - SETUID
   telegraf-x509:
     container_name: monitoring-telegraf-x509
-    image: telegraf:1.40.3-alpine@sha256:6d20820eeb3cfdbbd33b9040fded5898ed15f552836362836d9a8f00884ac1ea
+    image: telegraf:1.40.3-alpine@sha256:10fe8c974752c8088858f012cb47b71f5bb67c5695829be56d87dfbf8e0092b8
     restart: unless-stopped
     environment:
       - TZ=UTC
