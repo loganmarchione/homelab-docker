@@ -21,7 +21,15 @@
   "hostRules": [
     {
       "matchHost": "docker.io",
-      "concurrentRequestLimit": 2
+      "concurrentRequestLimit": 2,
+      "username": "{{ secrets.DOCKERHUB_USERNAME }}",
+      "password": "{{ secrets.DHI_TOKEN }}"
+    },
+    {
+      "hostType": "docker",
+      "matchHost": "dhi.io",
+      "username": "{{ secrets.DOCKERHUB_USERNAME }}",
+      "password": "{{ secrets.DHI_TOKEN }}"
     }
   ],
   "packageRules": [
