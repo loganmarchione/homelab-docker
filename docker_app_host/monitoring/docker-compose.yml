@@ -56,6 +56,34 @@ services:
       - no-new-privileges=true
     cap_drop:
       - ALL
+  postgres:
+    container_name: grafana-postgres
+    image: dhi.io/postgres:18.7-debian@sha256:3fc42f4f36adcc9de711ddd1750c715c960fb842c0947ff3b2cf53f70dff30ad
+    restart: unless-stopped
+    stop_grace_period: 60s
+    environment:
+      - TZ=UTC
+    env_file:
+      - /custom/files/grafana.env
+    networks:
+      - monitoring
+    volumes:
+      - 'postgres_data:/var/lib/postgresql'
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      start_period: 10s
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    security_opt:
+      - no-new-privileges=true
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - SETGID
+      - SETUID
   telegraf-docker-host:
     container_name: monitoring-telegraf-docker-host
     image: telegraf:1.40.3-alpine@sha256:10fe8c974752c8088858f012cb47b71f5bb67c5695829be56d87dfbf8e0092b8
@@ -139,7 +167,10 @@ services:
       - proxy
       - monitoring
     depends_on:
-      - influxdb
+      influxdb:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
     volumes:
       - 'grafana_data:/var/lib/grafana'
     labels:
@@ -167,6 +198,8 @@ volumes:
   prometheus_config:
     driver: local
   prometheus_data:
+    driver: local
+  postgres_data:
     driver: local
   telegraf_docker_host:
     driver: local
