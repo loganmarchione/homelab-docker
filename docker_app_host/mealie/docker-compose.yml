@@ -1,4 +1,32 @@
 services:
+  postgres:
+    container_name: mealie-postgres
+    image: dhi.io/postgres:18.7-debian@sha256:3fc42f4f36adcc9de711ddd1750c715c960fb842c0947ff3b2cf53f70dff30ad
+    restart: unless-stopped
+    stop_grace_period: 60s
+    environment:
+      - TZ=UTC
+    env_file:
+      - /custom/files/mealie.env
+    networks:
+      - mealie
+    volumes:
+      - 'postgres_data:/var/lib/postgresql'
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      start_period: 10s
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    security_opt:
+      - no-new-privileges=true
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - SETGID
+      - SETUID
   mealie:
     container_name: mealie
     image: ghcr.io/mealie-recipes/mealie:v3.31.0@sha256:97e21ac96e9a8d1ee15aaf558ba3f14998936b9d6f334e40ebb4c6c2127dc12f
@@ -9,6 +37,10 @@ services:
       - /custom/files/mealie.env
     networks:
       - proxy
+      - mealie
+    depends_on:
+      postgres:
+        condition: service_healthy
     volumes:
       - 'mealie_data:/app/data'
     labels:
@@ -29,9 +61,13 @@ services:
       - SETUID
 
 networks:
+  mealie:
+    internal: true
   proxy:
     external: true
 
 volumes:
   mealie_data:
+    driver: local
+  postgres_data:
     driver: local
