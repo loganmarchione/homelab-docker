@@ -1,4 +1,32 @@
 services:
+  postgres:
+    container_name: planka-postgres
+    image: dhi.io/postgres:18.7-debian@sha256:3fc42f4f36adcc9de711ddd1750c715c960fb842c0947ff3b2cf53f70dff30ad
+    restart: unless-stopped
+    stop_grace_period: 60s
+    environment:
+      - TZ=UTC
+    env_file:
+      - /custom/files/planka.env
+    networks:
+      - planka
+    volumes:
+      - 'postgres_data:/var/lib/postgresql'
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      start_period: 10s
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    security_opt:
+      - no-new-privileges=true
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - SETGID
+      - SETUID
   planka:
     container_name: planka
     image: ghcr.io/plankanban/planka:2.3.1@sha256:f767ab97b878265ea1fff826867718d6ffa95dac04cd979fb5db82489806fb51
@@ -9,6 +37,10 @@ services:
       - /custom/files/planka.env
     networks:
       - proxy
+      - planka
+    depends_on:
+      postgres:
+        condition: service_healthy
     volumes:
       - 'planka_data:/app/data'
     labels:
@@ -24,9 +56,13 @@ services:
       - ALL
 
 networks:
+  planka:
+    internal: true
   proxy:
     external: true
 
 volumes:
   planka_data:
+    driver: local
+  postgres_data:
     driver: local
