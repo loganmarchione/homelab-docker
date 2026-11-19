@@ -1,4 +1,32 @@
 services:
+  postgres:
+    container_name: miniflux-postgres
+    image: dhi.io/postgres:18.7-debian@sha256:3fc42f4f36adcc9de711ddd1750c715c960fb842c0947ff3b2cf53f70dff30ad
+    restart: unless-stopped
+    stop_grace_period: 60s
+    environment:
+      - TZ=UTC
+    env_file:
+      - /custom/files/miniflux.env
+    networks:
+      - miniflux
+    volumes:
+      - 'postgres_data:/var/lib/postgresql'
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      start_period: 10s
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    security_opt:
+      - no-new-privileges=true
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - SETGID
+      - SETUID
   miniflux:
     container_name: miniflux
     image: miniflux/miniflux:2.3.5@sha256:8fd6c3c434ecc3d4083306f83e03c0bb74c632e0f8378da5ead7e1773b0b89c9
@@ -9,6 +37,10 @@ services:
       - /custom/files/miniflux.env
     networks:
       - proxy
+      - miniflux
+    depends_on:
+      postgres:
+        condition: service_healthy
     labels:
       - traefik.enable=true
       - traefik.http.routers.miniflux.rule=Host(`miniflux.${SECRET_INTERNAL_DOMAIN_NAME}`)
@@ -22,5 +54,11 @@ services:
       - ALL
 
 networks:
+  miniflux:
+    internal: true
   proxy:
     external: true
+
+volumes:
+  postgres_data:
+    driver: local
