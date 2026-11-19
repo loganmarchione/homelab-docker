@@ -1,7 +1,7 @@
 services:
   drawio:
     container_name: drawio
-    image: jgraph/drawio:32.6.10@sha256:44e9e4b43d92a0704ee67da3dcf0966272ce95543cd135025ff05515e1dfaa9c
+    image: jgraph/drawio:32.7.4@sha256:3e3281733f69416b2b632adad05c9c07d434ebb775e01070d55e9f3247cebe31
     restart: unless-stopped
     environment:
       - TZ=America/New_York
