@@ -1,4 +1,32 @@
 services:
+  postgres:
+    container_name: nextcloud-postgres
+    image: dhi.io/postgres:18.7-debian@sha256:3fc42f4f36adcc9de711ddd1750c715c960fb842c0947ff3b2cf53f70dff30ad
+    restart: unless-stopped
+    stop_grace_period: 60s
+    environment:
+      - TZ=UTC
+    env_file:
+      - /custom/files/nextcloud.env
+    networks:
+      - nextcloud
+    volumes:
+      - 'postgres_data:/var/lib/postgresql'
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      start_period: 10s
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    security_opt:
+      - no-new-privileges=true
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - SETGID
+      - SETUID
   nextcloud:
     container_name: nextcloud
     image: nextcloud:35.0.3-apache@sha256:8a7a65b8bae82a79568fec2ed9cf3e374a1944eda2a22ebe130d79463336fee3
@@ -10,6 +38,9 @@ services:
     networks:
       - nextcloud
       - proxy
+    depends_on:
+      postgres:
+        condition: service_healthy
     volumes:
       - 'nextcloud_data:/var/www/html'
     labels:
@@ -97,6 +128,8 @@ networks:
     external: true
 
 volumes:
+  postgres_data:
+    driver: local
   nextcloud_data:
     driver: local
   redis_data:
