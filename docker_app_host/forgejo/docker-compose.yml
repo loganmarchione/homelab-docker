@@ -1,7 +1,7 @@
 services:
   postgres:
     container_name: forgejo-postgres
-    image: dhi.io/postgres:18.7-debian@sha256:3fc42f4f36adcc9de711ddd1750c715c960fb842c0947ff3b2cf53f70dff30ad
+    image: dhi.io/postgres:18.7-debian@sha256:aa7646c92c4e2bc16339f22e2ff560acbd72d122c80b637894b5b23b8d611cf8
     restart: unless-stopped
     stop_grace_period: 60s
     environment:
