@@ -1,7 +1,7 @@
 services:
   postgres:
     container_name: forgejo-postgres
-    image: postgres:17.12-alpine@sha256:526f86d93c6ea08fd3f1fe5605650cacc781b2c6013169a0ad8f42c7d3d84f32
+    image: dhi.io/postgres:18.7-debian@sha256:3fc42f4f36adcc9de711ddd1750c715c960fb842c0947ff3b2cf53f70dff30ad
     restart: unless-stopped
     stop_grace_period: 60s
     environment:
@@ -11,9 +11,9 @@ services:
     networks:
       - forgejo
     volumes:
-      - 'postgres_data:/var/lib/postgresql/data'
+      - 'postgres_data:/var/lib/postgresql'
     healthcheck:
-      test: ["CMD", "pg_isready", "-U", "forgejo"]
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
       start_period: 10s
       interval: 10s
       timeout: 5s
@@ -39,7 +39,8 @@ services:
       - forgejo
       - proxy
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
     volumes:
       - 'forgejo_config:/etc/gitea'
       - 'forgejo_data:/var/lib/gitea'
@@ -57,6 +58,7 @@ services:
 
 networks:
   forgejo:
+    internal: true
   proxy:
     external: true
 
