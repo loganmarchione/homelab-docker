@@ -1,7 +1,7 @@
 services:
   postgres:
     container_name: planka-postgres
-    image: dhi.io/postgres:18.7-debian@sha256:aa7646c92c4e2bc16339f22e2ff560acbd72d122c80b637894b5b23b8d611cf8
+    image: dhi.io/postgres:18.7-debian@sha256:4e4265edbd4ea0885e221a6ad623b449f65bc3180895eb3cb4093b23e144d9ee
     restart: unless-stopped
     stop_grace_period: 60s
     environment:
