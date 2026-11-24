@@ -1,7 +1,7 @@
 services:
   postgres:
     container_name: miniflux-postgres
-    image: dhi.io/postgres:18.7-debian@sha256:598e8de5b927a839809075288a916bc425dba6eacc5851b057e2e113c91f3176
+    image: dhi.io/postgres:18.7-debian@sha256:dff4d0d19d65268a166aa99dc9db00a620a02daec0ed904dfddc86bbf530ab96
     restart: unless-stopped
     stop_grace_period: 60s
     environment:
