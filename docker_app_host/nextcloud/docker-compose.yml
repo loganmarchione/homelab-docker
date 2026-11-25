@@ -1,7 +1,7 @@
 services:
   postgres:
     container_name: nextcloud-postgres
-    image: dhi.io/postgres:18.7-debian@sha256:dff4d0d19d65268a166aa99dc9db00a620a02daec0ed904dfddc86bbf530ab96
+    image: dhi.io/postgres:18.7-debian@sha256:181730ca326272a0af668bfe82316d075d7b5906b6ab03d4c32f1bc21766d819
     restart: unless-stopped
     stop_grace_period: 60s
     environment:
@@ -29,7 +29,7 @@ services:
       - SETUID
   nextcloud:
     container_name: nextcloud
-    image: nextcloud:35.0.3-apache@sha256:f22d1dd63844bd15bbf6c2019149653c3d1c775ba48b173b56c3c6ad5f386196
+    image: nextcloud:35.0.3-apache@sha256:f44180601f18e7664557232b4c5edb0eb4a82d649c05b93313f4e15909553d42
     restart: unless-stopped
     environment:
       - TZ=America/New_York
@@ -100,7 +100,7 @@ services:
       - SETPCAP
   nextcloud-cron:
     container_name: nextcloud-cron
-    image: nextcloud:35.0.3-apache@sha256:f22d1dd63844bd15bbf6c2019149653c3d1c775ba48b173b56c3c6ad5f386196
+    image: nextcloud:35.0.3-apache@sha256:f44180601f18e7664557232b4c5edb0eb4a82d649c05b93313f4e15909553d42
     restart: unless-stopped
     environment:
       - TZ=America/New_York

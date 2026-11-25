@@ -1,7 +1,7 @@
 services:
   influxdb:
     container_name: monitoring-influxdb
-    image: influxdb:1.13.2@sha256:ffa96366d916545608b8ae8dcc09d1efb5d792e4139096dfdcb1daf8789b211a
+    image: influxdb:1.13.2@sha256:1af977b298d63558897aeab3533e4f4e4d31dc9755da0b9b625fb3a4e56da332
     restart: unless-stopped
     stop_grace_period: 60s
     environment:
@@ -58,7 +58,7 @@ services:
       - ALL
   postgres:
     container_name: grafana-postgres
-    image: dhi.io/postgres:18.7-debian@sha256:dff4d0d19d65268a166aa99dc9db00a620a02daec0ed904dfddc86bbf530ab96
+    image: dhi.io/postgres:18.7-debian@sha256:181730ca326272a0af668bfe82316d075d7b5906b6ab03d4c32f1bc21766d819
     restart: unless-stopped
     stop_grace_period: 60s
     environment:
