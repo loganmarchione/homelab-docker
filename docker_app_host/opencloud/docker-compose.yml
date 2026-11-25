@@ -1,7 +1,7 @@
 services:
   opencloud:
     container_name: opencloud
-    image: opencloudeu/opencloud:9.1.1@sha256:d7d5b547f9e41db24f030d6a6857c4184752b2c875c936952ee0601b6531cd51
+    image: opencloudeu/opencloud-rolling:9.2.0@sha256:99698aea6bd88cf28004c773941cf69e2d24da136a3a45f9819b90b60506d14d
     restart: unless-stopped
     stop_grace_period: 30s
     environment:
