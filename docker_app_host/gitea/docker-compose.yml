@@ -1,7 +1,7 @@
 services:
   postgres:
     container_name: gitea-postgres
-    image: dhi.io/postgres:18.7-debian@sha256:181730ca326272a0af668bfe82316d075d7b5906b6ab03d4c32f1bc21766d819
+    image: dhi.io/postgres:18.7-debian@sha256:d86dd7dd6e28da6aa8f770ff9a7e01eccae0a9ae9e62d5774ed0ddea381cf162
     restart: unless-stopped
     stop_grace_period: 60s
     environment:
